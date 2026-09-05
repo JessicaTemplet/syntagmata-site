@@ -51,9 +51,24 @@
     padding: 0 28px;
   }
 
-  header.hero{
-    padding: 96px 0 64px;
+  /* ---- NEW: About/intro header (was hero) ---- */
+
+  header.intro{
+    padding: 108px 0 72px;
     border-bottom: 1px solid var(--panel-line);
+  }
+
+  header.intro .wrap{
+    max-width: none;
+    margin: 0;
+    padding: 0 1in;
+  }
+
+  .intro-inner{
+    display: grid;
+    grid-template-columns: 1.05fr 0.85fr;
+    gap: 28px;
+    align-items: flex-start;
   }
 
   .kicker{
@@ -64,20 +79,30 @@
     margin: 0 0 20px;
   }
 
-  h1{
-    font-size: clamp(32px, 5vw, 46px);
+  h2.greeting{
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
     font-weight: 500;
-    line-height: 1.15;
-    margin: 0 0 22px;
-    max-width: 14ch;
+    color: #E8BE6F;
+    letter-spacing: 0.2px;
+    text-shadow: 0 0 18px rgba(232, 190, 111, 0.35);
+    margin: 0 0 16px;
+  }
+
+  h1{
+    font-size: clamp(32px, 4.6vw, 46px);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 20px;
   }
 
   .lede{
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.6;
     color: var(--paper-dim);
     max-width: 56ch;
-    margin: 0;
+    margin: 0 0 26px;
   }
 
   .lede a{
@@ -86,6 +111,29 @@
     text-underline-offset: 3px;
   }
   .lede a:hover{ text-decoration-color: var(--amber); }
+
+  .intro-text p{
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--paper-dim);
+    margin: 0 0 16px;
+  }
+  .intro-text p:last-child{ margin-bottom: 0; }
+
+  .intro-image{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .intro-image img{
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 24px 40px rgba(0,0,0,0.55));
+  }
 
   /* Registry */
 
@@ -222,6 +270,52 @@
     margin-top: 4px;
   }
 
+  /* ---- NEW: closing banner (was header hero image) ---- */
+
+  section.closing{
+    position: relative;
+    padding: 140px 0;
+    margin-top: 24px;
+    border-top: 1px solid var(--panel-line);
+    overflow: hidden;
+  }
+
+  .closing-bg{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .closing-bg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.9;
+  }
+
+  .closing-bg::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14,17,22,0.15) 0%, rgba(14,17,22,0.55) 55%, rgba(14,17,22,0.92) 100%);
+  }
+
+  .closing-content{
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+  }
+
+  .closing-content p.kicker{ margin-bottom: 16px; }
+
+  .closing-content h2{
+    font-size: clamp(24px, 3.4vw, 32px);
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0;
+  }
+
   footer{
     padding: 48px 0 96px;
     color: var(--paper-dim);
@@ -235,8 +329,18 @@
   }
   footer a:hover{ text-decoration-color: var(--amber); }
 
+  @media (max-width: 700px){
+    header.intro{ padding: 76px 0 48px; }
+    header.intro .wrap{ padding: 0 28px; }
+    .intro-inner{
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .intro-image{ order: -1; max-width: 260px; margin: 0 auto; }
+    section.closing{ padding: 96px 0; }
+  }
+
   @media (max-width: 560px){
-    header.hero{ padding: 64px 0 40px; }
     .entry{ grid-template-columns: 32px 1fr; }
     .spine-line{ left: 15px; }
     .registry-head{ flex-direction: column; align-items: flex-start; }
@@ -246,18 +350,36 @@
 </head>
 <body>
 
-<div class="wrap">
-  <header class="hero">
-    <p class="kicker">syntagmata.com</p>
-    <h1>A registry of running software.</h1>
-    <p class="lede">
-      I'm Jessica Templet, solo builder at <a href="https://templetsolutions.com">Templet Solutions</a>.
-      JD, self-taught engineer, occasional geometer. Everything below is deployed and
-      reachable right now, not a screenshot of something that used to work.
-    </p>
-  </header>
+<header class="intro">
+  <div class="wrap">
+    <div class="intro-inner">
+      <div class="intro-text">
+        <h2 class="greeting">Hi, I'm Jessica Templet</h2>
+        <h1>I build systems that cannot afford to fail.</h1>
+        <p>My entry into software wasn't through a standard computer science
+        pipeline; it was forged through discrete mathematics and military service.
+        That background shaped how I approach engineering: structure first,
+        absolute clarity on edge cases, and zero reliance on off-the-shelf
+        abstractions when performance and data integrity are on the line.</p>
+        <p>I work primarily at the intersection of low-level systems, distributed
+        reliability, and applied mathematics. Whether I am hand-writing zero-copy
+        parsers in Rust, engineering network diagnostics in Go, or researching
+        belief manifolds for AI memory architectures, my baseline requirement is
+        the same: complete visibility into every layer of the execution stack.</p>
+        <p>I don't hide the learning curve or pretend to have all the answers
+        upfront. I dive into complex, uncharted domain space, map the
+        mathematical boundaries, build the solution from first principles, and
+        own the results.</p>
+      </div>
+      <div class="intro-image">
+        <img src="office.png" alt="Jessica Templet" />
+      </div>
+    </div>
+  </div>
+</header>
 
-  <section class="registry">
+<div class="wrap">
+  <section class="registry" id="registry">
     <div class="registry-head">
       <h2>Projects</h2>
     </div>
@@ -370,7 +492,21 @@
 
     </div>
   </section>
+</div>
 
+<section class="closing">
+  <div class="closing-bg">
+    <img src="hero-image.png" alt="" role="presentation" />
+  </div>
+  <div class="wrap">
+    <div class="closing-content">
+      <p class="kicker">structure first, edge cases mapped</p>
+      <h2>Discrete mathematics, distributed systems,<br>and the boundary between them.</h2>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
   <footer>
     <p>Built by Jessica Templet. More on <a href="https://github.com/JessicaTemplet">GitHub</a>.</p>
   </footer>
