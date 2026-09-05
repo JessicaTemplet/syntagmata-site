@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Syntagmata</title>
+<meta name="description" content="A registry of running software built by Jessica Templet." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0E1116;
+    --panel: #171B21;
+    --panel-line: #262C35;
+    --paper: #E8E6DE;
+    --paper-dim: #A7A79C;
+    --amber: #C08A3E;
+    --amber-dim: #7A5C2E;
+    --slate: #4A6FA5;
+    --teal: #4F9D8C;
+    --serif: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--serif);
+  }
+
+  body{
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  ::selection{ background: var(--amber-dim); color: var(--paper); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header.hero{
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  .kicker{
+    font-family: var(--serif);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--paper-dim);
+    margin: 0 0 20px;
+  }
+
+  h1{
+    font-size: clamp(32px, 5vw, 46px);
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0 0 22px;
+    max-width: 14ch;
+  }
+
+  .lede{
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--paper-dim);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .lede a{
+    color: var(--paper);
+    text-decoration-color: var(--amber-dim);
+    text-underline-offset: 3px;
+  }
+  .lede a:hover{ text-decoration-color: var(--amber); }
+
+  /* Registry */
+
+  section.registry{
+    padding: 64px 0 40px;
+    position: relative;
+  }
+
+  .registry-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 36px;
+    gap: 24px;
+  }
+
+  .registry-head h2{
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .registry-head p{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--paper-dim);
+    margin: 0;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .spine{
+    position: relative;
+  }
+
+  .spine-line{
+    position: absolute;
+    left: 27px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--panel-line);
+    transform-origin: top;
+    animation: draw-spine 900ms ease-out both;
+  }
+
+  @keyframes draw-spine{
+    from{ transform: scaleY(0); }
+    to{ transform: scaleY(1); }
+  }
+
+  .entry{
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 24px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .entry:last-child{ border-bottom: none; }
+
+  .entry-index{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--paper-dim);
+    padding-top: 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .entry-index .dot{
+    display:block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--panel-line);
+    margin-top: 8px;
+  }
+  .entry.is-live .entry-index .dot{ background: var(--teal); }
+
+  .entry-body h3{
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .entry-body h3 a{
+    text-decoration: none;
+    border-bottom: 1px solid var(--amber-dim);
+  }
+  .entry-body h3 a:hover{ border-bottom-color: var(--amber); color: var(--amber); }
+
+  .status-tag{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--paper-dim);
+    font-weight: 400;
+  }
+  .entry.is-live .status-tag{ color: var(--teal); }
+
+  .entry-body p{
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--paper-dim);
+    margin: 0 0 12px;
+    max-width: 60ch;
+  }
+
+  .stack{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stack span{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--slate);
+    border: 1px solid var(--panel-line);
+    border-radius: 3px;
+    padding: 3px 7px;
+  }
+
+  .entry-note{
+    font-size: 13px;
+    color: var(--paper-dim);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  footer{
+    padding: 48px 0 96px;
+    color: var(--paper-dim);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  footer a{
+    text-decoration-color: var(--amber-dim);
+    text-underline-offset: 3px;
+  }
+  footer a:hover{ text-decoration-color: var(--amber); }
+
+  @media (max-width: 560px){
+    header.hero{ padding: 64px 0 40px; }
+    .entry{ grid-template-columns: 32px 1fr; }
+    .spine-line{ left: 15px; }
+    .registry-head{ flex-direction: column; align-items: flex-start; }
+    .registry-head p{ text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">syntagmata.com</p>
+    <h1>A registry of running software.</h1>
+    <p class="lede">
+      I'm Jessica Templet, solo builder at <a href="https://templetsolutions.com">Templet Solutions</a>.
+      JD, self-taught engineer, occasional geometer. Everything below is deployed and
+      reachable right now, not a screenshot of something that used to work.
+    </p>
+  </header>
+
+  <section class="registry">
+    <div class="registry-head">
+      <h2>Projects</h2>
+    </div>
+
+    <div class="spine">
+      <div class="spine-line"></div>
+
+      <div class="entry is-live">
+        <div class="entry-index">01<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3><a href="https://novastructur.syntagmata.com">NovaStructur</a><span class="status-tag">live</span></h3>
+          <p>A project manager that also tracks issues, not the other way around. Built to stay
+          low bloat instead of turning into another Jira.</p>
+          <div class="stack"><span>Next.js</span><span>Postgres</span><span>CRDT sync</span></div>
+        </div>
+      </div>
+
+      <div class="entry is-live">
+        <div class="entry-index">02<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3><a href="https://gnn-pde-cfd.syntagmata.com">GNN PDE CFD</a><span class="status-tag">live</span></h3>
+          <p>Graph neural network PDE solvers for computational fluid dynamics. The dashboard
+          shows real validation output, including the fix for a spectral radius blow-up in
+          autoregressive rollouts.</p>
+          <div class="stack"><span>PyTorch</span><span>GNN</span><span>PDE</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">03<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>RheoLogos<span class="status-tag">building</span></h3>
+          <p>A double-entry payment ledger with an event-driven outbox, an idempotent
+          consumer, and a dead-letter queue. Kafka and Redis run alongside the app, Postgres
+          is managed.</p>
+          <div class="stack"><span>Kotlin</span><span>Spring Boot</span><span>Kafka</span><span>Postgres</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">04<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>FlagForge<span class="status-tag">building</span></h3>
+          <p>A real-time feature flag and configuration engine. Single binary, embedded UI,
+          nothing else to run.</p>
+          <div class="stack"><span>Go</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">05<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>B2B Federation Gateway<span class="status-tag">building</span></h3>
+          <p>An enterprise identity gateway speaking SAML, OIDC, SCIM, and ABAC to each other,
+          against a working demo tenant.</p>
+          <div class="stack"><span>Go</span><span>SAML</span><span>OIDC</span><span>SCIM</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">06<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Micro Identity Sidecar<span class="status-tag">building</span></h3>
+          <p>A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a
+          sidecar next to whatever actually needs the auth.</p>
+          <div class="stack"><span>Go</span><span>OAuth 2.1</span><span>OIDC</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">07<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Simpson Slice Detector<span class="status-tag">building</span></h3>
+          <p>Flags categorical slices of a dataset where the trend reverses against the
+          overall trend, the shape Simpson's paradox leaves behind.</p>
+          <div class="stack"><span>Python</span><span>Flask</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">08<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Archivum<span class="status-tag">desktop</span></h3>
+          <p>A local-first document vault. Desktop only, so this one gets a walkthrough
+          video instead of a link once it's recorded.</p>
+          <div class="stack"><span>Rust</span><span>Tauri</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">09<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3><a href="https://github.com/JessicaTemplet/limes">Limes</a><span class="status-tag">terminal tool, source linked</span></h3>
+          <p>Diagnoses and fixes cross-cloud network conflicts: overlapping CIDR ranges,
+          inconsistent private networking, DNS resolving differently across AWS, GCP, and
+          Azure. Built alone, under production pressure, to fix a real outage.</p>
+          <div class="stack"><span>Go</span><span>CLI</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-index">10<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Stemma<span class="status-tag">building</span></h3>
+          <p>Detects instructions embedded in content headed for an LLM or agent, and traces
+          where they actually came from before anything acts on them.</p>
+          <div class="stack"><span>Rust</span><span>WASM</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by Jessica Templet. More on <a href="https://github.com/JessicaTemplet">GitHub</a>.</p>
+  </footer>
+</div>
+
+</body>
+</html>
