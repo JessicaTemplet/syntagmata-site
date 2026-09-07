@@ -91,17 +91,33 @@
     max-width: 58ch;
   }
 
-  .intro-image{
-    width: 100%;
-    max-width: 280px;
-    justify-self: end;
-  }
+  .intro-inner{
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 42vw);
+  gap: 40px;
+  align-items: center;
+  position: relative;
+}
 
-  .intro-image img{
-    display: block;
-    width: 100%;
-    height: auto;
-  }
+.intro-image{
+  position: relative;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  /* Allow the image to overflow the container */
+  overflow: visible;
+}
+
+.intro-image img{
+  display: block;
+  width: 140%;                 /* bigger than the column */
+  max-width: none;
+  height: auto;
+  /* Push it further to the right so it bleeds past the viewport */
+  transform: translateX(18%);
+  filter: drop-shadow(0 24px 40px rgba(0,0,0,0.55));
+}
 
   /* ---- REGISTRY ---- */
 
