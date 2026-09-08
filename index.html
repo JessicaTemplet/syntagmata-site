@@ -1,828 +1,1611 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Syntagmata</title>
-<meta name="description" content="A registry of running software built by Jessica Templet." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink: #0e1116;
-    --paper: #e8e4d8;
-    --paper-dim: #b7b2a5;
-    --slate: #727b86;
-    --amber: #d9a441;
-    --amber-dim: #9d762e;
-    --teal: #4fa89a;
-    --panel: #151a20;
-    --panel-line: #2b3139;
-    --serif: Georgia, "Times New Roman", serif;
-    --mono: "Courier New", Courier, monospace;
-    --sans: Arial, Helvetica, sans-serif;
-  }
-
-  *{
-    box-sizing: border-box;
-  }
-
-  html{
-    scroll-behavior: smooth;
-  }
-
-  body{
-    margin: 0;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: var(--serif);
-    line-height: 1.6;
-  }
-
-  a{
-    color: var(--paper);
-  }
-
-  .wrap{
-    width: min(920px, calc(100% - 56px));
-    margin: 0 auto;
-  }
-
-  /* ---- INTRO ---- */
-
-  header.intro{
-    padding: 110px 0 90px;
-  }
-
-  .intro-inner{
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 70px;
-    align-items: center;
-  }
-
-  .intro-copy{
-    max-width: 640px;
-  }
-
-  .kicker{
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin: 0 0 18px;
-  }
-
-  .intro-copy h1{
-    font-size: clamp(42px, 7vw, 72px);
-    line-height: 0.98;
-    font-weight: 500;
-    margin: 0 0 24px;
-    letter-spacing: -0.03em;
-  }
-
-  .intro-copy p{
-    font-size: 18px;
-    line-height: 1.65;
-    color: var(--paper-dim);
-    margin: 0;
-    max-width: 58ch;
-  }
-
-  .intro-inner{
-  display: grid;
-  grid-template-columns: 1fr minmax(320px, 42vw);
-  gap: 40px;
-  align-items: center;
-  position: relative;
-}
-
-.intro-image{
-  position: relative;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  /* Allow the image to overflow the container */
-  overflow: visible;
-}
-
-.intro-image img{
-  display: block;
-  width: 140%;                 /* bigger than the column */
-  max-width: none;
-  height: auto;
-  /* Push it further to the right so it bleeds past the viewport */
-  transform: translateX(18%);
-  filter: drop-shadow(0 24px 40px rgba(0,0,0,0.55));
-}
-
-  /* ---- REGISTRY ---- */
-
-  section.registry{
-    padding: 72px 0 110px;
-  }
-
-  .registry-head{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 30px;
-    margin-bottom: 34px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--panel-line);
-  }
-
-  .registry-head h2{
-    font-size: 24px;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  .registry-head p{
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--slate);
-    margin: 0;
-    text-align: right;
-    line-height: 1.5;
-  }
-
-  .registry{
-    position: relative;
-  }
-
-  .spine{
-    position: relative;
-  }
-
-  .spine-line{
-    position: absolute;
-    left: 27px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--panel-line);
-    transform-origin: top;
-    animation: spineIn 1.2s ease forwards;
-  }
-
-  @keyframes spineIn{
-    from{
-      transform: scaleY(0);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jessica Templet — Principal Software Engineer specializing in distributed systems, identity infrastructure, and applied mathematics.">
+  <title>Jessica Templet — Principal Software Engineer</title>
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      --bg: #fafaf9;
+      --bg-elevated: #ffffff;
+      --bg-secondary: #f5f5f4;
+      --text-primary: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #a8a29e;
+      --accent: #0c4a6e;
+      --accent-light: #e0f2fe;
+      --accent-hover: #075985;
+      --border: #e7e5e4;
+      --border-hover: #0c4a6e;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      --max-width: 1200px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    to{
-      transform: scaleY(1);
-    }
-  }
-
-  /* ---- PROJECT ENTRY ---- */
-
-  .entry{
-    position: relative;
-    display: grid;
-    grid-template-columns: 56px minmax(0, 1fr) 300px;
-    gap: 0 24px;
-    padding: 26px 0;
-    border-bottom: 1px solid var(--panel-line);
-    align-items: center;
-  }
-
-  .entry:last-child{
-    border-bottom: none;
-  }
-
-  .entry-index{
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--paper-dim);
-    padding-top: 3px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .entry-index .dot{
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--panel-line);
-    margin-top: 8px;
-  }
-
-  .entry.is-live .entry-index .dot{
-    background: var(--teal);
-  }
-
-  .entry-body h3{
-    font-size: 19px;
-    font-weight: 600;
-    margin: 0 0 8px;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .entry-body h3 a{
-    text-decoration: none;
-    border-bottom: 1px solid var(--amber-dim);
-  }
-
-  .entry-body h3 a:hover{
-    border-bottom-color: var(--amber);
-    color: var(--amber);
-  }
-
-  .status-tag{
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 13.5px;
-    color: var(--paper-dim);
-    font-weight: 400;
-  }
-
-  .entry.is-live .status-tag{
-    color: var(--teal);
-  }
-
-  .entry-body p{
-    font-size: 15.5px;
-    line-height: 1.55;
-    color: var(--paper-dim);
-    margin: 0 0 12px;
-    max-width: 60ch;
-  }
-
-  .stack{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .stack span{
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--slate);
-    border: 1px solid var(--panel-line);
-    border-radius: 3px;
-    padding: 3px 7px;
-  }
-
-  .entry-note{
-    font-size: 13px;
-    color: var(--paper-dim);
-    font-style: italic;
-    margin-top: 4px;
-  }
-
-  /* ---- INLINE PROJECT VIDEO ---- */
-
-  .entry-video{
-    width: 100%;
-    max-width: 300px;
-    justify-self: end;
-  }
-
-  .entry-video video{
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--panel-line);
-    border-radius: 3px;
-    background: var(--panel);
-  }
-
-  /* ---- CLOSING ---- */
-
-  section.closing{
-    position: relative;
-    padding: 140px 0;
-    margin-top: 24px;
-    border-top: 1px solid var(--panel-line);
-    overflow: hidden;
-  }
-
-  .closing-bg{
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .closing-bg img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 40%;
-    opacity: 0.9;
-  }
-
-  .closing-bg::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(14,17,22,0.15) 0%,
-      rgba(14,17,22,0.55) 55%,
-      rgba(14,17,22,0.92) 100%
-    );
-  }
-
-  .closing-content{
-    position: relative;
-    z-index: 1;
-    max-width: 560px;
-  }
-
-  .closing-content p.kicker{
-    margin-bottom: 16px;
-  }
-
-  .closing-content h2{
-    font-size: clamp(24px, 3.4vw, 32px);
-    font-weight: 500;
-    line-height: 1.3;
-    margin: 0;
-  }
-
-  /* ---- FOOTER ---- */
-
-  footer{
-    padding: 48px 0 96px;
-    color: var(--paper-dim);
-    font-size: 13.5px;
-    line-height: 1.7;
-  }
-
-  footer a{
-    text-decoration-color: var(--amber-dim);
-    text-underline-offset: 3px;
-  }
-
-  footer a:hover{
-    text-decoration-color: var(--amber);
-  }
-
-  /* ---- TABLET / MOBILE ---- */
-
-  @media (max-width: 700px){
-
-    header.intro{
-      padding: 76px 0 48px;
+    [data-theme="dark"] {
+      --bg: #0c0a09;
+      --bg-elevated: #1c1917;
+      --bg-secondary: #292524;
+      --text-primary: #fafaf9;
+      --text-secondary: #d6d3d1;
+      --text-muted: #78716c;
+      --accent: #38bdf8;
+      --accent-light: #164e63;
+      --accent-hover: #7dd3fc;
+      --border: #292524;
+      --border-hover: #38bdf8;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+      --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.5);
     }
 
-    header.intro .wrap{
-      padding: 0 28px;
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .intro-inner{
-      grid-template-columns: 1fr;
-      gap: 32px;
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .intro-image{
-      order: -1;
-      max-width: 260px;
-      margin: 0 auto;
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      overflow-x: hidden;
     }
 
-    section.closing{
-      padding: 96px 0;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .entry{
-      grid-template-columns: 40px 1fr;
-    }
-
-    .entry-video{
-      grid-column: 2;
+    img {
       max-width: 100%;
-      margin-top: 18px;
-      justify-self: start;
+      height: auto;
+      display: block;
     }
 
-    .spine-line{
-      left: 19px;
-    }
-  }
-
-  @media (max-width: 560px){
-
-    .entry{
-      grid-template-columns: 32px 1fr;
+    video {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
-    .spine-line{
-      left: 15px;
+    ::selection {
+      background-color: var(--accent);
+      color: white;
     }
 
-    .registry-head{
+    /* ============================================================
+       UTILITIES
+       ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 0;
+      transition: var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(var(--bg-rgb, 250, 250, 249), 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+      padding: 0.75rem 0;
+    }
+
+    [data-theme="dark"] .navbar.scrolled {
+      background-color: rgba(12, 10, 9, 0.85);
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background-color: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      z-index: 999;
       flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu a:last-child {
+      border-bottom: none;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+      opacity: 0.5;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    [data-theme="dark"] .hero::before {
+      opacity: 0.15;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+      }
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      background-color: var(--accent-light);
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .hero-greeting {
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.1s forwards;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.3s forwards;
+    }
+
+    .hero-body p {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero-image {
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.5s forwards;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-xl);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.02) translateY(-4px);
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 2px solid var(--accent);
+      border-radius: calc(var(--radius) + 12px);
+      opacity: 0.15;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-image:hover::before {
+      opacity: 0.3;
+    }
+
+    /* ============================================================
+       SECTIONS
+       ============================================================ */
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    /* ============================================================
+       PROJECTS
+       ============================================================ */
+    .projects {
+      padding: 5rem 0 6rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .project-card {
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: var(--transition-slow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background-color: var(--accent);
+      transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-hover);
+    }
+
+    .project-card:hover::before {
+      height: 100%;
+    }
+
+    .project-header {
+      display: flex;
       align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
     }
 
-    .registry-head p{
-      text-align: left;
+    .project-index {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+      transition: color 0.3s ease;
     }
-  }
-</style>
+
+    .project-card:hover .project-index {
+      color: var(--accent);
+    }
+
+    .project-index .dot {
+      width: 6px;
+      height: 6px;
+      background-color: currentColor;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .project-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .project-title a {
+      color: var(--text-primary);
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .project-title a:hover {
+      color: var(--accent);
+    }
+
+    .project-title a[target="_blank"]::after {
+      content: '↗';
+      font-size: 0.75em;
+      margin-left: 0.25rem;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    .project-title a[target="_blank"]:hover::after {
+      opacity: 1;
+    }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.625rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    .status-live {
+      background-color: var(--success-light, #d1fae5);
+      color: var(--success, #059669);
+    }
+
+    [data-theme="dark"] .status-live {
+      background-color: #064e3b;
+      color: #34d399;
+    }
+
+    .status-desktop {
+      background-color: var(--bg-secondary);
+      color: var(--text-secondary);
+    }
+
+    .status-building {
+      background-color: var(--warning-light, #fef3c7);
+      color: var(--warning, #b45309);
+    }
+
+    [data-theme="dark"] .status-building {
+      background-color: #451a03;
+      color: #fbbf24;
+    }
+
+    .status-source {
+      background-color: var(--info-light, #e0e7ff);
+      color: var(--info, #4338ca);
+    }
+
+    [data-theme="dark"] .status-source {
+      background-color: #1e1b4b;
+      color: #818cf8;
+    }
+
+    .project-desc {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stack-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.625rem;
+      background-color: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .project-card:hover .stack-tag {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .project-video {
+      margin: 0 -2rem -2rem;
+      padding: 0;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-video video {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* ============================================================
+       CONTACT / FOOTER
+       ============================================================ */
+    .contact {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+      background-color: var(--bg-secondary);
+      transition: background-color 0.5s ease;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-text h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      max-width: 400px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    .contact-link svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .contact-link:hover svg {
+      color: var(--accent);
+    }
+
+    .footer {
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       RESUME PAGE
+       ============================================================ */
+    .resume-page {
+      padding: 7rem 0 4rem;
+      min-height: 100vh;
+    }
+
+    .resume-actions {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .resume-paper {
+      max-width: 850px;
+      margin: 0 auto;
+      background-color: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    @media (min-width: 768px) {
+      .resume-paper {
+        padding: 4rem 3.5rem;
+      }
+    }
+
+    .resume-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .resume-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .resume-title {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .resume-contact {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .resume-contact a {
+      color: var(--accent);
+      transition: color 0.2s ease;
+    }
+
+    .resume-contact a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .resume-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .resume-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .resume-section h2 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resume-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .resume-section ul li {
+      position: relative;
+      padding-left: 1.25rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .resume-section ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .skill-category h3 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-category p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .job {
+      margin-bottom: 2rem;
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.25rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .job-title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .job-meta {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .job-company {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .job ul li {
+      position: relative;
+      padding-left: 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .job ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .job-subheader {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================================
+       PRINT STYLES
+       ============================================================ */
+    @media print {
+      .navbar,
+      .resume-actions,
+      .theme-toggle,
+      .mobile-menu-btn,
+      .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+        color: black !important;
+      }
+
+      .resume-page {
+        padding: 0 !important;
+      }
+
+      .resume-paper {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        background: white !important;
+      }
+
+      .resume-section {
+        break-inside: avoid;
+        margin-bottom: 1.5rem !important;
+      }
+
+      .job {
+        break-inside: avoid;
+        margin-bottom: 1.5rem !important;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: black !important;
+      }
+
+      a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.75em;
+        color: #555;
+      }
+
+      .resume-header {
+        border-bottom-color: #333 !important;
+      }
+
+      .resume-section h2 {
+        color: #333 !important;
+        border-bottom-color: #ddd !important;
+      }
+    }
+
+    /* ============================================================
+       ACCESSIBILITY
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
-
-<script>
-(function () {
-  const services = [
-    {
-      name: "NovaStructur",
-      url: "https://novastructur.onrender.com/"
-    },
-    {
-      name: "RheoLogos",
-      url: "https://rheologos.syntagmata.com/"
-    },
-    {
-      name: "FlagForge",
-      url: "https://flagforge.syntagmata.com/"
-    },
-    {
-      name: "B2B Federation Gateway",
-      url: "https://b2bfp.syntagmata.com/"
-    },
-    {
-      name: "Micro Identity Sidecar",
-      url: "https://microidentitysidecar.syntagmata.com/"
-    },
-    {
-      name: "CollabPM",
-      url: "https://acme.collabpm.syntagmata.com/"
-    }
-  ];
-
-  function wakeService(service) {
-    fetch(service.url, {
-      method: "GET",
-      mode: "no-cors",
-      cache: "no-store"
-    }).catch(() => {});
-  }
-
-  // Wake every Render service when the portfolio loads.
-  services.forEach(wakeService);
-
-  // Give the browser a moment, then send a second pass.
-  setTimeout(() => {
-    services.forEach(wakeService);
-  }, 10000);
-
-  // Wake the relevant service again when its walkthrough starts.
-  document.querySelectorAll(".entry-video video[data-wake-url]").forEach(video => {
-    video.addEventListener("play", function () {
-      const url = this.dataset.wakeUrl;
-
-      if (!url) return;
-
-      fetch(url, {
-        method: "GET",
-        mode: "no-cors",
-        cache: "no-store"
-      }).catch(() => {});
-    }, { once: false });
-  });
-})();
-</script>
-
 <body>
+  <!-- ==========================================================
+       RENDER WAKE SCRIPT
+       ========================================================== -->
+  <script>
+    (function () {
+      const services = [
+        { name: "NovaStructur", url: "https://novastructur.onrender.com/" },
+        { name: "RheoLogos", url: "https://rheologos.syntagmata.com/" },
+        { name: "FlagForge", url: "https://flagforge.syntagmata.com/" },
+        { name: "B2B Federation Gateway", url: "https://b2bfp.syntagmata.com/" },
+        { name: "Micro Identity Sidecar", url: "https://microidentitysidecar.syntagmata.com/" },
+        { name: "CollabPM", url: "https://acme.collabpm.syntagmata.com/" },
+        { name: "GNN PDE CFD", url: "https://gnn-pde-cfd.syntagmata.com/" }
+      ];
 
-<header class="intro">
-  <div class="wrap">
-    <div class="intro-inner">
-      <div class="intro-text">
-        <h2 class="greeting">Hi, I'm Jessica Templet</h2>
-        <h1>I build systems that cannot afford to fail.</h1>
-        <p>My entry into software wasn't through a standard computer science
-        pipeline; it was forged through discrete mathematics and military service.
-        That background shaped how I approach engineering: structure first,
-        absolute clarity on edge cases, and zero reliance on off-the-shelf
-        abstractions when performance and data integrity are on the line.</p>
-        <p>I work primarily at the intersection of low-level systems, distributed
-        reliability, and applied mathematics. Whether I am hand-writing zero-copy
-        parsers in Rust, engineering network diagnostics in Go, or researching
-        belief manifolds for AI memory architectures, my baseline requirement is
-        the same: complete visibility into every layer of the execution stack.</p>
-        <p>I don't hide the learning curve or pretend to have all the answers
-        upfront. I dive into complex, uncharted domain space, map the
-        mathematical boundaries, build the solution from first principles, and
-        own the results.</p>
+      function wakeService(url) {
+        fetch(url, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(() => {});
+      }
+
+      services.forEach(s => wakeService(s.url));
+      setTimeout(() => services.forEach(s => wakeService(s.url)), 10000);
+    })();
+  </script>
+
+  <!-- ==========================================================
+       NAVIGATION
+       ========================================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#/" class="nav-brand">JT</a>
+      <div class="nav-links">
+        <a href="#/" data-route="/">Work</a>
+        <a href="#/resume" data-route="/resume">Resume</a>
+        <a href="#contact" data-route="contact">Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
       </div>
-      <div class="intro-image">
-        <img src="poincaredisk.jpg" alt="Jessica Templet" />
-      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#/" data-route="/">Work</a>
+    <a href="#/resume" data-route="/resume">Resume</a>
+    <a href="#contact" data-route="contact">Contact</a>
   </div>
-</header>
-<div class="wrap">
-  <section class="registry" id="registry">
-    <div class="registry-head">
-      <h2>Projects <p> Click the title to try the live program</p></h2>
-    </div>
 
-    <div class="spine">
-      <div class="spine-line"></div>
+  <!-- ==========================================================
+       MAIN APP
+       ========================================================== -->
+  <main id="app"></main>
 
-      <div class="entry is-live">
-        <div class="entry-index">01<span class="dot"></span></div>
+  <!-- ==========================================================
+       JAVASCRIPT
+       ========================================================== -->
+  <script>
+    // ============================================================
+    // DATA
+    // ============================================================
+    const projects = [
+      {
+        index: '01',
+        name: 'GNN PDE CFD',
+        url: 'https://gnn-pde-cfd.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'Built from scratch Graph Neural Network PDE solvers for computational fluid dynamics. With a validation dashboard that shows real output, including the fix for a spectral radius blow-up in autoregressive rollouts.',
+        stack: ['PyTorch', 'GNN', 'PDE'],
+        video: null,
+        wakeUrl: 'https://gnn-pde-cfd.syntagmata.com'
+      },
+      {
+        index: '02',
+        name: 'RheoLogos',
+        url: 'https://rheologos.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'A double-entry payment ledger with an event-driven outbox, an idempotent consumer, and a dead-letter queue. Kafka and Redis run alongside the app; Postgres is managed.',
+        stack: ['Kotlin', 'Spring Boot', 'Kafka', 'Postgres'],
+        video: '/demo/rheologos.mp4',
+        wakeUrl: 'https://rheologos.syntagmata.com'
+      },
+      {
+        index: '03',
+        name: 'FlagForge',
+        url: 'https://flagforge.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'A real-time feature flag and configuration engine. Single binary, embedded UI, written in Go (I also have a Rust version)—nothing else to run.',
+        stack: ['Go'],
+        video: '/demo/flagforge.mp4',
+        wakeUrl: 'https://flagforge.syntagmata.com'
+      },
+      {
+        index: '04',
+        name: 'B2B Federation Gateway',
+        url: 'https://b2bfp.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'An enterprise identity gateway speaking SAML, OIDC, SCIM, and ABAC to each other, against a working demo tenant.',
+        stack: ['Go', 'SAML', 'OIDC', 'SCIM'],
+        video: '/demo/b2bfp.mp4',
+        wakeUrl: 'https://b2bfp.syntagmata.com'
+      },
+      {
+        index: '05',
+        name: 'Micro Identity Sidecar',
+        url: 'https://microidentitysidecar.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a sidecar next to whatever actually needs the auth.',
+        stack: ['Go', 'OAuth 2.1', 'OIDC'],
+        video: '/demo/sidecar.mp4',
+        wakeUrl: 'https://microidentitysidecar.syntagmata.com'
+      },
+      {
+        index: '06',
+        name: 'NovaStructur',
+        url: 'https://novastructur.onrender.com/login',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'A project manager that also tracks issues, not the other way around. Built to stay low-bloat instead of turning into another Jira. Features a custom hand-rolled CRDT, an MCP for LLM integration, a tiny custom RAG with bespoke binary semantic search, and custom chunking logic optimized for coding.',
+        stack: ['Next.js', 'Postgres', 'CRDT sync'],
+        video: '/demo/novastructur.mp4',
+        wakeUrl: 'https://novastructur.onrender.com/'
+      },
+      {
+        index: '07',
+        name: 'CollabPM',
+        url: 'https://acme.collabpm.syntagmata.com',
+        status: 'live',
+        statusLabel: 'live',
+        description: 'A full-blown collaborative project manager based on a Google Docs-style shared text editor over Action Cable with a hand-rolled custom CRDT, calendar, and project intelligence MCP.',
+        stack: ['Python', 'Flask'],
+        video: '/demo/collabpm.mp4',
+        wakeUrl: 'https://acme.collabpm.syntagmata.com/'
+      },
+      {
+        index: '08',
+        name: 'Archivum',
+        url: null,
+        status: 'desktop',
+        statusLabel: 'desktop',
+        description: 'A local-first document vault and complete digital live manager.',
+        stack: ['Rust', 'Tauri'],
+        video: null,
+        wakeUrl: null
+      },
+      {
+        index: '09',
+        name: 'Limes',
+        url: 'https://github.com/JessicaTemplet/limes',
+        status: 'source',
+        statusLabel: 'terminal tool, source linked',
+        description: 'Diagnoses and fixes cross-cloud network conflicts: overlapping CIDR ranges, inconsistent private networking, DNS resolving differently across AWS, GCP, and Azure. Built alone, under production pressure, to fix a real outage.',
+        stack: ['Go', 'CLI'],
+        video: null,
+        wakeUrl: null
+      },
+      {
+        index: '10',
+        name: 'Stemma',
+        url: null,
+        status: 'building',
+        statusLabel: 'building',
+        description: 'Detects instructions embedded in content headed for an LLM or agent, and traces where they actually came from before anything acts on them.',
+        stack: ['Rust', 'WASM'],
+        video: null,
+        wakeUrl: null
+      }
+    ];
 
-        <div class="entry-body">
-          <h3><a href="https://gnn-pde-cfd.syntagmata.com">GNN PDE CFD</a>
-            <span class="status-tag">live</span>
-          </h3>
+    // ============================================================
+    // THEME
+    // ============================================================
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
 
-          <p>
-            Built from scratch Graph Neural Network PDE solvers for computational 
-			fluid dynamics. With a validation dashboard that shows real output, 
-			including the fix for a spectral radius blow-up inautoregressive rollouts.
-          </p>
+    const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+    const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
 
-          <div class="stack">
-            <span>PyTorch</span>
-            <span>GNN</span>
-            <span>PDE</span>
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeIcon.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    themeToggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // ============================================================
+    // MOBILE MENU
+    // ============================================================
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ============================================================
+    // NAV SCROLL EFFECT
+    // ============================================================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ============================================================
+    // SCROLL REVEAL
+    // ============================================================
+    function initAnimations() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, index * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    // ============================================================
+    // VIDEO WAKE
+    // ============================================================
+    function initVideoWake() {
+      document.querySelectorAll('video[data-wake-url]').forEach(video => {
+        video.addEventListener('play', function () {
+          const url = this.dataset.wakeUrl;
+          if (!url) return;
+          fetch(url, { method: 'GET', mode: 'no-cors', cache: 'no-store' }).catch(() => {});
+        }, { once: false });
+      });
+    }
+
+    // ============================================================
+    // ROUTER
+    // ============================================================
+    const app = document.getElementById('app');
+
+    function updateActiveNav(route) {
+      document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+        link.classList.toggle('active', link.dataset.route === route);
+      });
+    }
+
+    function renderPortfolio() {
+      updateActiveNav('/');
+      window.scrollTo(0, 0);
+
+      const headshotUrl = 'headshot.png';
+
+      app.innerHTML = `
+        <!-- Hero -->
+        <section class="hero">
+          <div class="container">
+            <div class="hero-grid">
+              <div class="hero-content">
+                <span class="hero-label">Principal Software Engineer</span>
+                <h2 class="hero-greeting">Hi, I'm Jessica Templet</h2>
+                <h1 class="hero-headline">I build systems that cannot afford to fail.</h1>
+                <div class="hero-body">
+                  <p>My entry into software wasn't through a standard computer science pipeline; it was forged through discrete mathematics and military service. That background shaped how I approach engineering: structure first, absolute clarity on edge cases, and zero reliance on off-the-shelf abstractions when performance and data integrity are on the line.</p>
+                  <p>I work primarily at the intersection of low-level systems, distributed reliability, and applied mathematics. Whether I am hand-writing zero-copy parsers in Rust, engineering network diagnostics in Go, or researching belief manifolds for AI memory architectures, my baseline requirement is the same: complete visibility into every layer of the execution stack.</p>
+                  <p>I don't hide the learning curve or pretend to have all the answers upfront. I dive into complex, uncharted domain space, map the mathematical boundaries, build the solution from first principles, and own the results.</p>
+                </div>
+                <div class="hero-actions">
+                  <a href="#/resume" class="btn btn-primary">View Resume</a>
+                  <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
+              </div>
+              <div class="hero-image">
+                <img src="${headshotUrl}" alt="Jessica Templet professional headshot" loading="eager">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="projects" id="work">
+          <div class="container">
+            <div class="section-header reveal">
+              <span class="section-label">Selected Work</span>
+              <h2 class="section-title">Projects & Systems</h2>
+            </div>
+            <div class="projects-grid">
+              ${projects.map((p, i) => `
+                <article class="project-card reveal" style="transition-delay: ${i * 50}ms">
+                  <div class="project-header">
+                    <span class="project-index">${p.index}<span class="dot"></span></span>
+                    <div class="project-meta">
+                      <h3 class="project-title">
+                        ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a>` : p.name}
+                        <span class="status-tag status-${p.status}">${p.statusLabel}</span>
+                      </h3>
+                    </div>
+                  </div>
+                  <p class="project-desc">${p.description}</p>
+                  <div class="project-stack">
+                    ${p.stack.map(s => `<span class="stack-tag">${s}</span>`).join('')}
+                  </div>
+                  ${p.video ? `
+                    <div class="project-video">
+                      <video controls preload="metadata" data-wake-url="${p.wakeUrl || ''}" poster="">
+                        <source src="${p.video}" type="video/mp4">
+                      </video>
+                    </div>
+                  ` : ''}
+                </article>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+          <div class="container">
+            <div class="contact-grid">
+              <div class="contact-text">
+                <h2>Let's build something that lasts.</h2>
+                <p>I'm currently open to fractional CTO engagements, principal engineering roles, and ambitious infrastructure projects.</p>
+                <a href="mailto:jessica@templetsolutions.com" class="btn btn-primary">Start a Conversation</a>
+              </div>
+              <div class="contact-links">
+                <a href="mailto:jessica@templetsolutions.com" class="contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  jessica@templetsolutions.com
+                </a>
+                <a href="tel:228-366-4604" class="contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  228-366-4604
+                </a>
+                <a href="https://www.linkedin.com/in/jessicatemplet" target="_blank" rel="noopener" class="contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  LinkedIn
+                </a>
+                <a href="https://github.com/JessicaTemplet" target="_blank" rel="noopener" class="contact-link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <div class="container">
+            <p>© ${new Date().getFullYear()} Jessica Templet. Built with precision.</p>
+          </div>
+        </footer>
+      `;
+
+      initAnimations();
+      initVideoWake();
+    }
+
+    function renderResume() {
+      updateActiveNav('/resume');
+      window.scrollTo(0, 0);
+
+      app.innerHTML = `
+        <div class="resume-page">
+          <div class="container">
+            <div class="resume-actions no-print">
+              <a href="#/" class="btn btn-secondary">← Back to Portfolio</a>
+              <button class="btn btn-primary" onclick="window.print()">Print Resume</button>
+            </div>
+
+            <div class="resume-paper">
+              <header class="resume-header">
+                <h1>Jessica Templet</h1>
+                <p class="resume-title">Principal Software Engineer | Distributed Systems, Identity & Cloud Infrastructure</p>
+                <div class="resume-contact">
+                  <span>Ocean Springs, MS</span>
+                  <span>•</span>
+                  <a href="mailto:jessica@templetsolutions.com">jessica@templetsolutions.com</a>
+                  <span>•</span>
+                  <span>228-366-4604</span>
+                  <span>•</span>
+                  <a href="https://www.linkedin.com/in/jessicatemplet">LinkedIn</a>
+                  <span>•</span>
+                  <a href="https://github.com/JessicaTemplet">GitHub</a>
+                </div>
+              </header>
+
+              <section class="resume-section">
+                <h2>Summary</h2>
+                <ul>
+                  <li>Principal Software Engineer designing identity and infrastructure systems in Go, Rust, and Python</li>
+                  <li>Built production SAML/OIDC/SCIM identity gateways, multi-cloud policy enforcement tooling, and sub-100ns hot-path backend services</li>
+                  <li>Technical range from low-level systems programming and cryptographic protocol work to applied mathematics and distributed data infrastructure</li>
+                </ul>
+              </section>
+
+              <section class="resume-section">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                  <div class="skill-category">
+                    <h3>Languages & Tooling</h3>
+                    <p>Go, Rust, Python, Ruby on Rails 8, TypeScript, JavaScript, React, Axum, FastAPI, Tauri, Vite, tokio, Docker</p>
+                  </div>
+                  <div class="skill-category">
+                    <h3>Identity & Security</h3>
+                    <p>SAML 2.0, OIDC, SCIM 2.0, OAuth 2.1, PKCE, JWT/JWKS, ABAC/RBAC engines, XML-DSig, cryptographic audit trails</p>
+                  </div>
+                  <div class="skill-category">
+                    <h3>Data & Hybrid Cloud</h3>
+                    <p>PostgreSQL (RLS), Kafka, Redis (RESP), AWS, GCP, Azure, BoltDB, Linux systems engineering, Git</p>
+                  </div>
+                  <div class="skill-category">
+                    <h3>Applied Mathematics</h3>
+                    <p>Hyperbolic geometry, spectral graph theory, topological data analysis, differential geometry, discrete mathematics</p>
+                  </div>
+                  <div class="skill-category">
+                    <h3>Retrieval & Search</h3>
+                    <p>RAG, GraphRAG, hybrid retrieval (dense embeddings + BM25 + graph traversal), ANN vector search (hnswlib), sentence-transformers</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="resume-section">
+                <h2>Professional Experience</h2>
+
+                <div class="job">
+                  <div class="job-header">
+                    <span class="job-title">Principal Engineer (Fractional CTO)</span>
+                    <span class="job-meta">2025 – Present</span>
+                  </div>
+                  <div class="job-company">Templet Solutions</div>
+                  <ul>
+                    <li><strong>Limes Cross-Cloud Network Guard (Go):</strong> Built a multi-cloud CLI tool constructing provider-agnostic inventory graphs across AWS/GCP/Azure. Deploys one-shot serverless probes to detect CIDR overlaps and egress hairpinning.</li>
+                    <li><strong>Policy-as-Code & Ledger Enforcement:</strong> Automated infrastructure drift mitigation by rendering native policy docs paired with a CI/CD pre-flight ledger check utilizing S3 conditional writes.</li>
+                    <li><strong>B2B Enterprise Identity Gateway (Go):</strong> Engineered a multi-tenant API gateway handling corporate SSO (SAML 2.0, OIDC) and SCIM 2.0 directory sync; hand-rolled XML-DSig and RS256 token verification using the pure Go standard library.</li>
+                    <li><strong>Vulnerability Remediation & Safety:</strong> Authored deterministic regression test suites protecting against XML Signature Wrapping, SAML replay, identity-header injection, JWT algorithm confusion, and recursion-depth DoS limits.</li>
+                    <li><strong>Real-Time Feature Flag Engine (Go):</strong> Designed a single-binary configuration service with lock-free rule evaluation using atomic values and BoltDB persistence; benchmarked at ~98 ns/op parallel evaluation with 0 allocations on the hot path.</li>
+                    <li><strong>Multi-Tenant SaaS Architecture (Rails 8):</strong> Built a shared-DB multi-tenant engine enforcing dual-layer security via application scopes and mandatory PostgreSQL Row-Level Security; implemented a server-authoritative Fugue CRDT collaborative editor over Action Cable.</li>
+                    <li><strong>Micro-Identity Sidecar (Go):</strong> Built a dependency-free OAuth 2.1/OIDC authorization server enforcing mandatory S256 PKCE, single-use auth codes, refresh token rotation with reuse detection, and background signing-key rotation with grace-period JWKS publishing.</li>
+                    <li><strong>GNN PDE Surrogate Stabilization:</strong> Diagnosed and resolved autoregressive rollout instability in a graph neural network PDE surrogate via a per-layer Euclidean translator enforcing equivariance combined with curriculum unrolling and a Cole-Hopf log transform.</li>
+                    <li><strong>Hybrid RAG/GraphRAG Retrieval Engine (Python/Rust):</strong> Built a multi-strategy retrieval layer fusing dense embedding search, zone-weighted BM25, and graph traversal into a single continuously-weighted relevance score.</li>
+                    <li><strong>Cryptographic Audit & Provenance System (Rust/Python):</strong> Built a tamper-evident audit layer combining HMAC-signed records with key rotation, Merkle-tree checkpoint verification, and a stratigraphy-inspired provenance model.</li>
+                    <li><strong>Hybrid Python/Rust Architecture (PyO3):</strong> Ported numerically hot paths, spectral graph analysis, Kalman filtering, hyperbolic geometry, cryptographic signing, and retrieval to Rust via PyO3 bindings.</li>
+                  </ul>
+                </div>
+
+                <div class="job">
+                  <div class="job-header">
+                    <span class="job-title">Freelance Software Engineer</span>
+                    <span class="job-meta">2026 – Present</span>
+                  </div>
+                  <div class="job-company">TenantTransparency</div>
+                  <ul>
+                    <li>Rebuilt a tenant-rights platform from a template into a full production system in under a month, shipping a containerized React and Vite frontend with an interactive neighborhood map alongside a landlord entity-resolution pipeline.</li>
+                  </ul>
+                </div>
+
+                <div class="job">
+                  <div class="job-header">
+                    <span class="job-title">Software Engineer</span>
+                    <span class="job-meta">2020 – 2025</span>
+                  </div>
+                  <div class="job-company">High Tech Systems and Software</div>
+                  <ul>
+                    <li>Engineered custom APIs and workflow automation integrating the DataKlas CRM/SFA platform into legacy databases and enterprise ERPs.</li>
+                    <li>Developed Business Intelligence layer leveraging layered machine learning models to forecast consumer demand trends.</li>
+                  </ul>
+                </div>
+              </section>
+
+              <section class="resume-section">
+                <h2>Completed Open-Source Supporting Systems</h2>
+                <ul>
+                  <li><strong>Systems Programming Tools:</strong> binsg (semantic search CLI over local files via binary-quantized embeddings), turbogrep (multi-threaded, memory-mapped grep with zero-copy I/O), and kvstore (Redis RESP2 store with AOF persistence and active/passive TTL).</li>
+                  <li><strong>Distributed Data Infrastructure:</strong> Built a concurrent link crawler with worker pools and token-bucket rate limiting, a Kotlin/Spring Boot distributed ledger implementing the transactional outbox pattern via Kafka, and a Python lead enrichment pipeline.</li>
+                </ul>
+              </section>
+
+              <section class="resume-section">
+                <h2>Prior Experience & Military Service</h2>
+                <ul>
+                  <li><strong>Legal Assistant</strong> — Hartness Law Office; Dodson, Hooks & Frederick (Trial prep and Deepwater Horizon litigation support) | 2007 – 2020</li>
+                  <li><strong>United States Army</strong> — Active Duty, Honorably Discharged | 2001 – 2007</li>
+                </ul>
+              </section>
+            </div>
           </div>
         </div>
-      </div>
+      `;
+    }
 
+    function router() {
+      const hash = window.location.hash.replace('#', '') || '/';
+      if (hash === '/resume') {
+        renderResume();
+      } else {
+        renderPortfolio();
+      }
+    }
 
-      <div class="entry is-live">
-        <div class="entry-index">02<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://rheologos.syntagmata.com">RheoLogos</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            A double-entry payment ledger with an event-driven outbox, an idempotent
-            consumer, and a dead-letter queue. Kafka and Redis run alongside the app, Postgres
-            is managed.
-          </p>
-
-          <div class="stack">
-            <span>Kotlin</span>
-            <span>Spring Boot</span>
-            <span>Kafka</span>
-            <span>Postgres</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/rheologos.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry is-live">
-        <div class="entry-index">03<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://flagforge.syntagmata.com">FlagForge</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            A real-time feature flag and configuration engine. Single binary, embedded UI,
-            written in GO (I also have a Rust version) nothing else to run.
-          </p>
-
-          <div class="stack">
-            <span>Go</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/flagforge.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry is-live">
-        <div class="entry-index">04<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://b2bfp.syntagmata.com">B2B Federation Gateway</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            An enterprise identity gateway speaking SAML, OIDC, SCIM, and ABAC to each other,
-            against a working demo tenant.
-          </p>
-
-          <div class="stack">
-            <span>Go</span>
-            <span>SAML</span>
-            <span>OIDC</span>
-            <span>SCIM</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/b2bfp.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry is-live">
-        <div class="entry-index">05<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://microidentitysidecar.syntagmata.com">Micro Identity Sidecar</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a
-            sidecar next to whatever actually needs the auth.
-          </p>
-
-          <div class="stack">
-            <span>Go</span>
-            <span>OAuth 2.1</span>
-            <span>OIDC</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/sidecar.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry is-live">
-        <div class="entry-index">06<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://novastructur.onrender.com/login">NovaStructur</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            A project manager that also tracks issues, not the other way around. Built to stay
-            low bloat instead of turning into another Jira. It feature a custom hand rolled CRDT
-			It also has an MCP for LLM integration, a tiny custom RAG with bespoke binary 
-			semantic search, and custom chunking logic specifically optimized for coding. 
-			Some code bases are massive and require context for an LLM to manage properly. 
-          </p>
-
-          <div class="stack">
-            <span>Next.js</span>
-            <span>Postgres</span>
-            <span>CRDT sync</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/novastructur.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry is-live">
-        <div class="entry-index">07<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://acme.collabpm.syntagmata.com">CollabPM</a>
-            <span class="status-tag">live</span>
-          </h3>
-
-          <p>
-            A full blown collabrative project manager based on a Google Docs-style 
-			shared text editor over Action Cable with hand rolled custom the CRDT...
-			calendar and project intelligence MCP for 
-          </p>
-
-          <div class="stack">
-            <span>Python</span>
-            <span>Flask</span>
-          </div>
-        </div>
-
-        <div class="entry-video">
-          <video controls preload="metadata">
-            <source src="/demo/collabpm.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-
-
-      <div class="entry">
-        <div class="entry-index">08<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            Archivum
-            <span class="status-tag">desktop</span>
-          </h3>
-
-          <p>
-            A local-first document vault. Desktop only, so this one gets a walkthrough
-            video instead of a link once it's recorded.
-          </p>
-
-          <div class="stack">
-            <span>Rust</span>
-            <span>Tauri</span>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="entry">
-        <div class="entry-index">09<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            <a href="https://github.com/JessicaTemplet/limes">
-              Limes
-            </a>
-            <span class="status-tag">terminal tool, source linked</span>
-          </h3>
-
-          <p>
-            Diagnoses and fixes cross-cloud network conflicts: overlapping CIDR ranges,
-            inconsistent private networking, DNS resolving differently across AWS, GCP, and
-            Azure. Built alone, under production pressure, to fix a real outage. (It's not Limes 
-			like the fruit, it's latin for frontier line or border defense).
-          </p>
-
-          <div class="stack">
-            <span>Go</span>
-            <span>CLI</span>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="entry">
-        <div class="entry-index">10<span class="dot"></span></div>
-
-        <div class="entry-body">
-          <h3>
-            Stemma
-            <span class="status-tag">building</span>
-          </h3>
-
-          <p>
-            Detects instructions embedded in content headed for an LLM or agent, and traces
-            where they actually came from before anything acts on them.
-          </p>
-
-          <div class="stack">
-            <span>Rust</span>
-            <span>WASM</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-</div>
-
-<section class="closing">
-  <div class="closing-bg">
-    <img src="hero-image.png" alt="" role="presentation" />
-  </div>
-  <div class="wrap">
-    <div class="closing-content">
-      <p class="kicker">structure first, edge cases mapped</p>
-      <h2>Discrete mathematics, distributed systems,<br>and the boundary between them.</h2>
-    </div>
-  </div>
-</section>
-
-<div class="wrap">
-  <footer>
-    <p>Built by Jessica Templet. More on <a href="https://github.com/JessicaTemplet">GitHub</a>.</p>
-  </footer>
-</div>
-
+    window.addEventListener('hashchange', router);
+    window.addEventListener('DOMContentLoaded', router);
+  </script>
 </body>
 </html>
