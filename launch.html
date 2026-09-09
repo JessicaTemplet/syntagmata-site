@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Launching… — Jess</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08080a;
+      --bg-elevated: #0e0e11;
+      --bg-card: #131316;
+      --border: #2b2b30;
+      --border-soft: #1c1c20;
+      --text-primary: #ececee;
+      --text-secondary: #9a9aa2;
+      --accent: #dc143c;
+      --accent-bright: #ff3358;
+      --accent-dim: #8c0f2c;
+      --accent-glow: rgba(220, 20, 60, 0.35);
+      --success: #4ade80;
+      --radius: 12px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(ellipse 900px 600px at 15% -10%, rgba(220, 20, 60, 0.14), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 100% 20%, rgba(150, 150, 160, 0.06), transparent 55%),
+        var(--bg);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+
+    .spinner.is-ready {
+      border-top-color: var(--success);
+      animation: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .card-title span {
+      color: var(--accent-bright);
+    }
+
+    .card-sub {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .log {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      background: var(--bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      min-height: 108px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .log-line {
+      color: var(--text-secondary);
+      opacity: 0;
+      animation: fadeIn 0.4s var(--ease) forwards;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .log-line .t {
+      color: var(--border);
+      flex-shrink: 0;
+    }
+
+    .log-line.is-ready { color: var(--success); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: var(--border-soft);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 1.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 6%;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent-bright));
+      border-radius: 100px;
+      transition: width 0.5s var(--ease);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.65rem 1.3rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+      transition: border-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-bright);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-bright);
+      border-color: var(--accent-bright);
+      color: #fff;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--accent-bright); }
+
+    .error .log { border-color: var(--accent-dim); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="spinner" id="spinner"></div>
+      <div class="card-title">Waking <span id="service-name">the demo</span>…</div>
+    </div>
+    <p class="card-sub" id="sub-text">
+      This project runs on a free-tier host that sleeps after inactivity.
+      The first request after a while wakes it back up — usually 15&ndash;40 seconds.
+    </p>
+
+    <div class="log" id="log"></div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+
+    <div class="actions">
+      <span class="note" id="elapsed">0s elapsed</span>
+      <a class="btn btn-primary" id="go-now" href="#">Continue anyway →</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const target = params.get('to');
+      const name = params.get('name') || 'the demo';
+
+      document.getElementById('service-name').textContent = name;
+      document.title = 'Waking ' + name + '… — Jess';
+
+      const goNow = document.getElementById('go-now');
+
+      if (!target) {
+        document.querySelector('.card').classList.add('error');
+        document.getElementById('sub-text').textContent = 'No destination was given.';
+        document.getElementById('log').innerHTML = '';
+        goNow.href = 'index.html';
+        goNow.textContent = 'Back to portfolio →';
+        document.getElementById('elapsed').style.display = 'none';
+        return;
+      }
+
+      goNow.href = target;
+
+      const lines = [
+        'sending wake request…',
+        'waiting for the container to boot…',
+        'app booting — dependencies, migrations, connection pools…',
+        'still warming up, hang tight…',
+        'this one usually takes a little longer…'
+      ];
+
+      const logEl = document.getElementById('log');
+      const progressEl = document.getElementById('progress');
+      const elapsedEl = document.getElementById('elapsed');
+      const spinnerEl = document.getElementById('spinner');
+
+      let lineIndex = 0;
+      let seconds = 0;
+      let done = false;
+
+      function addLine(text, isReady) {
+        const line = document.createElement('div');
+        line.className = 'log-line' + (isReady ? ' is-ready' : '');
+        line.innerHTML = '<span class="t">[' + String(seconds).padStart(2, '0') + 's]</span><span>' + text + '</span>';
+        logEl.appendChild(line);
+        while (logEl.children.length > 5) logEl.removeChild(logEl.firstChild);
+      }
+
+      addLine(lines[0]);
+
+      // Fire the real wake request.
+      fetch(target, { method: 'GET', mode: 'no-cors', cache: 'no-store' }).catch(() => {});
+
+      // Best-effort readiness check: an invisible iframe fires 'load' once
+      // the target has actually finished responding, even cross-origin.
+      const probe = document.createElement('iframe');
+      probe.style.display = 'none';
+      probe.src = target;
+      probe.addEventListener('load', () => finish());
+      document.body.appendChild(probe);
+
+      function finish() {
+        if (done) return;
+        done = true;
+        spinnerEl.classList.add('is-ready');
+        progressEl.style.width = '100%';
+        addLine('ready — redirecting…', true);
+        setTimeout(() => { window.location.replace(target); }, 500);
+      }
+
+      const tick = setInterval(() => {
+        seconds += 1;
+        elapsedEl.textContent = seconds + 's elapsed';
+        progressEl.style.width = Math.min(92, 6 + seconds * 3) + '%';
+
+        if (!done && seconds % 4 === 0 && lineIndex < lines.length - 1) {
+          lineIndex += 1;
+          addLine(lines[lineIndex]);
+        }
+
+        // Hard fallback: don't make anyone wait forever if the readiness
+        // probe never fires (e.g. the target blocks framing).
+        if (!done && seconds >= 25) {
+          clearInterval(tick);
+          finish();
+        }
+      }, 1000);
+    })();
+  </script>
+
+</body>
+</html>

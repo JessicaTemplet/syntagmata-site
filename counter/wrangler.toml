@@ -1,0 +1,16 @@
+name = "syntagmata-counter"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Fill in database_id after `wrangler d1 create syntagmata-visitor-counter`
+[[d1_databases]]
+binding = "DB"
+database_name = "syntagmata-visitor-counter"
+database_id = "REPLACE_WITH_DATABASE_ID"
+
+# Route this worker to counter.syntagmata.com (add the DNS record + route
+# in the Cloudflare dashboard, or via `wrangler deploy` if the zone is
+# already on Cloudflare)
+[[routes]]
+pattern = "counter.syntagmata.com/*"
+zone_name = "syntagmata.com"

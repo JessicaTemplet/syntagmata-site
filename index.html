@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jessica Templet — Principal Software Engineer</title>
+  <title>Jess — Principal Software Engineer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -490,7 +490,8 @@
       box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px var(--gray-shadow);
     }
 
-    .entry-video video {
+    .entry-video video,
+    .entry-video img {
       width: 100%;
       display: block;
       aspect-ratio: 16/9;
@@ -688,7 +689,7 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="logo">jessica_templet</div>
+      <div class="logo">jess</div>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -701,10 +702,10 @@
 
   <section class="hero" id="about">
     <div class="hero-visual">
-      <img src="headshot.png" alt="Jessica Templet" class="hero-img" />
+      <img src="headshot.png" alt="Jess" class="hero-img" />
     </div>
     <div class="hero-content">
-      <div class="hero-greeting">Hi, I'm Jessica Templet</div>
+      <div class="hero-greeting">Hi, I'm Jess</div>
       <h1>I build <span>systems that cannot afford to fail.</span></h1>
       <p>
         My entry into software wasn't through a standard computer science pipeline; 
@@ -744,7 +745,7 @@
       <div class="entry is-live reveal">
         <div class="entry-index">01<span class="dot"></span></div>
         <div class="entry-body">
-          <h3><a href="https://gnn-pde-cfd.syntagmata.com" target="_blank">GNN PDE CFD</a> <span class="status-tag">live</span></h3>
+          <h3><a href="https://gnn-pde-cfd.syntagmata.com" target="_blank" class="live-link" data-name="GNN PDE CFD">GNN PDE CFD</a> <span class="status-tag">live</span></h3>
           <p>Built from scratch Graph Neural Network PDE solvers for computational fluid dynamics. With a validation dashboard that shows real output, including the fix for a spectral radius blow-up in autoregressive rollouts.</p>
           <div class="stack"><span>PyTorch</span><span>GNN</span><span>PDE</span></div>
         </div>
@@ -754,14 +755,12 @@
         <div class="entry-index">02<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://rheologos.syntagmata.com" target="_blank">RheoLogos</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://rheologos.syntagmata.com" target="_blank" class="live-link" data-name="RheoLogos">RheoLogos</a> <span class="status-tag">live</span></h3>
             <p>A double-entry payment ledger with an event-driven outbox, an idempotent consumer, and a dead-letter queue. Kafka and Redis run alongside the app, Postgres is managed.</p>
             <div class="stack"><span>Kotlin</span><span>Spring Boot</span><span>Kafka</span><span>Postgres</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://rheologos.syntagmata.com/">
-              <source src="demo/rheologos.mp4" type="video/mp4">
-            </video>
+            <img src="demo/rheologos.gif" alt="RheoLogos walkthrough: opening accounts, sending a transfer, and watching the Kafka outbox pipeline propagate to Redis" loading="lazy">
           </div>
         </div>
       </div>
@@ -770,14 +769,12 @@
         <div class="entry-index">03<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://flagforge.syntagmata.com" target="_blank">FlagForge</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://flagforge.syntagmata.com" target="_blank" class="live-link" data-name="FlagForge">FlagForge</a> <span class="status-tag">live</span></h3>
             <p>A real-time feature flag and configuration engine. Single binary, embedded UI, written in Go (I also have a Rust version) nothing else to run.</p>
             <div class="stack"><span>Go</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://flagforge.syntagmata.com/">
-              <source src="demo/flagforge.mp4" type="video/mp4">
-            </video>
+            <img src="demo/flagforge.gif" alt="FlagForge walkthrough: creating a feature flag with a targeting rule and watching it appear in the audit log" loading="lazy">
           </div>
         </div>
       </div>
@@ -786,14 +783,12 @@
         <div class="entry-index">04<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://b2bfp.syntagmata.com" target="_blank">B2B Federation Gateway</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://b2bfp.syntagmata.com" target="_blank" class="live-link" data-name="B2B Federation Gateway">B2B Federation Gateway</a> <span class="status-tag">live</span></h3>
             <p>An enterprise identity gateway speaking SAML, OIDC, SCIM, and ABAC to each other, against a working demo tenant.</p>
             <div class="stack"><span>Go</span><span>SAML</span><span>OIDC</span><span>SCIM</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://b2bfp.syntagmata.com/">
-              <source src="demo/b2bfp.mp4" type="video/mp4">
-            </video>
+            <img src="demo/b2bfp.gif" alt="B2B Federation Gateway walkthrough: SCIM-provisioning a user, then calling a protected API from inside and outside the corporate network to show the ABAC policy allow and deny" loading="lazy">
           </div>
         </div>
       </div>
@@ -802,14 +797,12 @@
         <div class="entry-index">05<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://microidentitysidecar.syntagmata.com" target="_blank">Micro Identity Sidecar</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://microidentitysidecar.syntagmata.com" target="_blank" class="live-link" data-name="Micro Identity Sidecar">Micro Identity Sidecar</a> <span class="status-tag">live</span></h3>
             <p>A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a sidecar next to whatever actually needs the auth.</p>
             <div class="stack"><span>Go</span><span>OAuth 2.1</span><span>OIDC</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://microidentitysidecar.syntagmata.com/">
-              <source src="demo/sidecar.mp4" type="video/mp4">
-            </video>
+            <img src="demo/sidecar.gif" alt="Micro Identity Sidecar walkthrough: signing in through the OAuth 2.1 / PKCE authorization code flow and inspecting the decoded ID token claims" loading="lazy">
           </div>
         </div>
       </div>
@@ -818,14 +811,12 @@
         <div class="entry-index">06<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://novastructur.onrender.com/login" target="_blank">NovaStructur</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://novastructur.onrender.com/login" target="_blank" class="live-link" data-name="NovaStructur">NovaStructur</a> <span class="status-tag">live</span></h3>
             <p>A project manager that also tracks issues, not the other way around. Built to stay low bloat instead of turning into another Jira. It features a custom hand-rolled CRDT, an MCP for LLM integration, a tiny custom RAG with bespoke binary semantic search, and custom chunking logic specifically optimized for coding.</p>
             <div class="stack"><span>Next.js</span><span>Postgres</span><span>CRDT sync</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://novastructur.onrender.com/">
-              <source src="demo/novastructur.mp4" type="video/mp4">
-            </video>
+            <img src="demo/novastructur.gif" alt="NovaStructur walkthrough: opening an issue's detail view, then switching to the Kanban board" loading="lazy">
           </div>
         </div>
       </div>
@@ -834,14 +825,12 @@
         <div class="entry-index">07<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
-            <h3><a href="https://acme.collabpm.syntagmata.com" target="_blank">CollabPM</a> <span class="status-tag">live</span></h3>
+            <h3><a href="https://acme.collabpm.syntagmata.com" target="_blank" class="live-link" data-name="CollabPM">CollabPM</a> <span class="status-tag">live</span></h3>
             <p>A full blown collaborative project manager based on a Google Docs-style shared text editor over Action Cable with hand rolled custom CRDT, calendar and project intelligence MCP.</p>
             <div class="stack"><span>Python</span><span>Flask</span></div>
           </div>
           <div class="entry-video">
-            <video controls preload="metadata" data-wake-url="https://acme.collabpm.syntagmata.com/">
-              <source src="demo/collabpm.mp4" type="video/mp4">
-            </video>
+            <img src="demo/collabpm.gif" alt="CollabPM walkthrough: opening the Documents module and creating a new folder" loading="lazy">
           </div>
         </div>
       </div>
@@ -1007,7 +996,7 @@
   </section>
 
   <footer>
-    <p> Jessica Templet — Built with first principles.</p>
+    <p> Jess — Built with first principles.</p>
   </footer>
 
   <script>
@@ -1029,6 +1018,7 @@
   <script>
     (function () {
       const services = [
+        { name: "GNN PDE CFD", url: "https://gnn-pde-cfd.syntagmata.com/" },
         { name: "NovaStructur", url: "https://novastructur.onrender.com/" },
         { name: "RheoLogos", url: "https://rheologos.syntagmata.com/" },
         { name: "FlagForge", url: "https://flagforge.syntagmata.com/" },
@@ -1041,21 +1031,27 @@
         fetch(service.url, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(() => {});
       }
 
-      // Wake every Render service when the portfolio loads.
+      // Wake every Render service the moment the portfolio loads.
       services.forEach(wakeService);
 
       // Give the browser a moment, then send a second pass.
       setTimeout(() => { services.forEach(wakeService); }, 10000);
 
-      // Wake the relevant service again when its walkthrough starts.
-      document.querySelectorAll("video[data-wake-url]").forEach(video => {
-        video.addEventListener("play", function () {
-          const url = this.dataset.wakeUrl;
-          if (!url) return;
-          fetch(url, { method: "GET", mode: "no-cors", cache: "no-store" }).catch(() => {});
-        }, { once: false });
+      // Route "live" project links through a custom waking screen instead
+      // of letting people land on Render's generic spin-up page.
+      document.querySelectorAll("a.live-link").forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const to = encodeURIComponent(this.href);
+          const name = encodeURIComponent(this.dataset.name || this.textContent.trim());
+          window.open("launch.html?to=" + to + "&name=" + name, "_blank");
+        });
       });
     })();
+  </script>
+
+  <script>
+    fetch("https://counter.syntagmata.com/count").catch(() => {});
   </script>
 
 </body>
