@@ -6,11 +6,13 @@ compatibility_date = "2026-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "syntagmata-visitor-counter"
-database_id = "REPLACE_WITH_DATABASE_ID"
+database_id = "aa3bd6e9-d533-4bb5-8fbe-26f355fc3d23"
 
-# Route this worker to counter.syntagmata.com (add the DNS record + route
-# in the Cloudflare dashboard, or via `wrangler deploy` if the zone is
-# already on Cloudflare)
-[[routes]]
-pattern = "counter.syntagmata.com/*"
-zone_name = "syntagmata.com"
+# Route this worker to counter.syntagmata.com as a Custom Domain (not a
+# plain wildcard Route) specifically so `wrangler deploy` creates the
+# counter.syntagmata.com DNS record for us — plain Routes attach to an
+# existing hostname but don't create one, which left this unreachable
+# (NXDOMAIN) the first time this was deployed.
+routes = [
+  { pattern = "counter.syntagmata.com", custom_domain = true }
+]

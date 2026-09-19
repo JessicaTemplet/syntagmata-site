@@ -494,8 +494,13 @@
     .entry-video img {
       width: 100%;
       display: block;
-      aspect-ratio: 16/9;
+      aspect-ratio: 1280 / 598;
       object-fit: cover;
+      background: var(--bg);
+    }
+
+    .entry-video video {
+      cursor: pointer;
     }
 
     /* Skills */
@@ -760,7 +765,9 @@
             <div class="stack"><span>Kotlin</span><span>Spring Boot</span><span>Kafka</span><span>Postgres</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/rheologos.gif" alt="RheoLogos walkthrough: opening accounts, sending a transfer, and watching the Kafka outbox pipeline propagate to Redis" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/rheologos-poster.jpg" aria-label="RheoLogos walkthrough: opening accounts, sending a transfer, and watching the Kafka outbox pipeline propagate to Redis">
+              <source src="demo/rheologos.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -774,7 +781,9 @@
             <div class="stack"><span>Go</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/flagforge.gif" alt="FlagForge walkthrough: creating a feature flag with a targeting rule and watching it appear in the audit log" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/flagforge-poster.jpg" aria-label="FlagForge walkthrough: creating a feature flag with a targeting rule and watching it appear in the audit log">
+              <source src="demo/flagforge.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -788,7 +797,9 @@
             <div class="stack"><span>Go</span><span>SAML</span><span>OIDC</span><span>SCIM</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/b2bfp.gif" alt="B2B Federation Gateway walkthrough: SCIM-provisioning a user, then calling a protected API from inside and outside the corporate network to show the ABAC policy allow and deny" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/b2bfp-poster.jpg" aria-label="B2B Federation Gateway walkthrough: SCIM-provisioning a user, then calling a protected API from inside and outside the corporate network to show the ABAC policy allow and deny">
+              <source src="demo/b2bfp.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -802,7 +813,9 @@
             <div class="stack"><span>Go</span><span>OAuth 2.1</span><span>OIDC</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/sidecar.gif" alt="Micro Identity Sidecar walkthrough: signing in through the OAuth 2.1 / PKCE authorization code flow and inspecting the decoded ID token claims" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/sidecar-poster.jpg" aria-label="Micro Identity Sidecar walkthrough: signing in through the OAuth 2.1 / PKCE authorization code flow and inspecting the decoded ID token claims">
+              <source src="demo/sidecar.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -816,7 +829,9 @@
             <div class="stack"><span>Next.js</span><span>Postgres</span><span>CRDT sync</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/novastructur.gif" alt="NovaStructur walkthrough: opening an issue's detail view, then switching to the Kanban board" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/novastructur-poster.jpg" aria-label="NovaStructur walkthrough: opening an issue's detail view, then switching to the Kanban board">
+              <source src="demo/novastructur.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -830,7 +845,9 @@
             <div class="stack"><span>Python</span><span>Flask</span></div>
           </div>
           <div class="entry-video">
-            <img src="demo/collabpm.gif" alt="CollabPM walkthrough: opening the Documents module and creating a new folder" loading="lazy">
+            <video controls preload="metadata" playsinline poster="demo/collabpm-poster.jpg" aria-label="CollabPM walkthrough: opening the Documents module and creating a new folder">
+              <source src="demo/collabpm.mp4" type="video/mp4">
+            </video>
           </div>
         </div>
       </div>
@@ -1018,9 +1035,14 @@
   <script>
     (function () {
       const services = [
+        // RheoLogos runs Kafka + Redis alongside the JVM app, so it's the
+        // slowest cold start here — dispatched first. These all fire
+        // together in the same tick regardless of array order (no await
+        // between them), so this mostly future-proofs against someone
+        // later making the loop sequential, not a real timing fix today.
+        { name: "RheoLogos", url: "https://rheologos.syntagmata.com/" },
         { name: "GNN PDE CFD", url: "https://gnn-pde-cfd.syntagmata.com/" },
         { name: "NovaStructur", url: "https://novastructur.onrender.com/" },
-        { name: "RheoLogos", url: "https://rheologos.syntagmata.com/" },
         { name: "FlagForge", url: "https://flagforge.syntagmata.com/" },
         { name: "B2B Federation Gateway", url: "https://b2bfp.syntagmata.com/" },
         { name: "Micro Identity Sidecar", url: "https://microidentitysidecar.syntagmata.com/" },
