@@ -12,683 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #08080a;
-      --bg-elevated: #0e0e11;
-      --bg-card: #131316;
-      --border: #2b2b30;
-      --border-soft: #1c1c20;
-      --text-primary: #ececee;
-      --text-secondary: #9a9aa2;
-      --accent: #dc143c;
-      --accent-bright: #ff3358;
-      --accent-dim: #8c0f2c;
-      --accent-glow: rgba(220, 20, 60, 0.35);
-      --gray-shadow: rgba(160, 160, 170, 0.08);
-      --success: #4ade80;
-      --radius: 12px;
-      --max-width: 1200px;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background:
-        radial-gradient(ellipse 900px 600px at 15% -10%, rgba(220, 20, 60, 0.14), transparent 60%),
-        radial-gradient(ellipse 700px 500px at 100% 20%, rgba(150, 150, 160, 0.06), transparent 55%),
-        var(--bg);
-      background-attachment: fixed;
-      color: var(--text-primary);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    ::selection {
-      background: rgba(220, 20, 60, 0.3);
-      color: var(--text-primary);
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes ringPulse {
-      0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow), 0 20px 60px rgba(0,0,0,0.6); }
-      50% { box-shadow: 0 0 0 14px rgba(220, 20, 60, 0), 0 20px 70px rgba(0,0,0,0.65); }
-    }
-
-    @keyframes dotPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
-      70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
-    }
-
-    @keyframes crimsonPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.55); }
-      70% { box-shadow: 0 0 0 7px rgba(220, 20, 60, 0); }
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(8, 8, 10, 0.75);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-soft);
-      animation: fadeIn 0.8s var(--ease) both;
-    }
-
-    .nav-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      position: relative;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: color 0.25s var(--ease);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 100%;
-      height: 1px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s var(--ease);
-    }
-
-    .nav-links a:hover {
-      color: var(--text-primary);
-    }
-
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 8rem 2rem 4rem;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      gap: 4rem;
-    }
-
-    .hero-visual {
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .hero-visual {
-      animation: fadeInUp 0.9s var(--ease) both;
-    }
-
-    .hero-visual::before {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, var(--accent), transparent 30%, transparent 70%, var(--accent-bright));
-      opacity: 0.55;
-      z-index: -1;
-      animation: spin 8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .hero-img {
-      width: 340px;
-      height: 340px;
-      border-radius: 50%;
-      object-fit: contain;
-      background: var(--bg-card);
-      border: 2px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      animation: ringPulse 4s ease-in-out infinite;
-      transition: transform 0.4s var(--ease);
-    }
-
-    .hero-img:hover {
-      transform: scale(1.03);
-    }
-
-    .hero-content {
-      max-width: 640px;
-    }
-
-    .hero-greeting {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--accent-bright);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-      animation: fadeInUp 0.7s var(--ease) both;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-      animation: fadeInUp 0.7s var(--ease) both;
-      animation-delay: 0.08s;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--accent-bright), var(--accent) 60%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-      margin-bottom: 1.25rem;
-      line-height: 1.7;
-      animation: fadeInUp 0.7s var(--ease) both;
-    }
-
-    .hero p:nth-of-type(1) { animation-delay: 0.16s; }
-    .hero p:nth-of-type(2) { animation-delay: 0.24s; }
-    .hero p:nth-of-type(3) { animation-delay: 0.32s; }
-
-    .hero-cta {
-      margin-top: 2rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.7s var(--ease) both;
-      animation-delay: 0.4s;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s var(--ease);
-      border: 1px solid transparent;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0a0a0c;
-      box-shadow: 0 0 0 0 var(--accent-glow);
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-bright);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px var(--accent-glow);
-    }
-
-    .btn-secondary {
-      border-color: var(--border);
-      color: var(--text-primary);
-      box-shadow: 0 0 0 0 rgba(160,160,170,0);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent-bright);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-
-    /* Section Layout */
-    section {
-      padding: 6rem 2rem;
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-
-    .section-header {
-      margin-bottom: 3rem;
-    }
-
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .section-note {
-      color: var(--accent-bright);
-      font-size: 0.9rem;
-      margin-top: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* Projects */
-    .projects {
-      background: var(--bg-elevated);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .entry {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 2rem;
-      padding: 2.5rem;
-      margin: 0 0 2rem;
-      border: 3px solid transparent;
-      border-radius: var(--radius);
-      position: relative;
-      transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease), transform 0.35s var(--ease), border-color 0.35s var(--ease);
-    }
-
-    .entry:hover {
-      background: var(--bg-card);
-      border-color: var(--accent);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.45), 0 0 24px var(--accent-glow);
-      transform: translateY(-2px);
-    }
-
-    .entry:last-child {
-      margin-bottom: 0;
-    }
-
-    .entry-index {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      padding-top: 0.25rem;
-    }
-
-    .entry-index .dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
-
-    .entry.is-live .dot {
-      background: var(--success);
-      box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
-      animation: dotPulse 2s ease-in-out infinite;
-    }
-
-    .entry-body h3 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .entry-body h3 a {
-      color: var(--text-primary);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-
-    .entry-body h3 a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .status-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.25rem 0.6rem;
-      border-radius: 100px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .is-live .status-tag {
-      color: var(--success);
-      border-color: rgba(74, 222, 128, 0.2);
-    }
-
-    .entry-body p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 1rem;
-      max-width: 640px;
-    }
-
-    .stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .stack span {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      padding: 0.3rem 0.7rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text-secondary);
-      transition: border-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
-    }
-
-    .stack span:hover {
-      border-color: var(--accent-dim);
-      color: var(--accent-bright);
-      transform: translateY(-1px);
-    }
-
-    .entry-body.has-video {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .entry-video {
-      width: 100%;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
-    }
-
-    .entry-video:hover {
-      border-color: var(--border-soft);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px var(--gray-shadow);
-    }
-
-    .entry-video video,
-    .entry-video img {
-      width: 100%;
-      display: block;
-      aspect-ratio: 1280 / 598;
-      object-fit: cover;
-      background: var(--bg);
-    }
-
-    .entry-video video {
-      cursor: pointer;
-    }
-
-    /* Skills */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
-    }
-
-    .skill-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-dim);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
-    }
-
-    .skill-card h4 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .skill-card ul {
-      list-style: none;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
-
-    /* Experience */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 1.5rem;
-      border-left: 1px solid var(--border);
-    }
-
-    .timeline-item {
-      transition: transform 0.3s var(--ease);
-    }
-
-    .timeline-item:hover {
-      transform: translateX(4px);
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -3px;
-      top: 0.4rem;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 0 var(--accent-glow);
-      animation: crimsonPulse 2.4s ease-in-out infinite;
-    }
-
-    .timeline-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .timeline-header h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .timeline-header .date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-    }
-
-    .timeline-item .role {
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    .timeline-item ul {
-      list-style: none;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
-
-    .timeline-item ul li {
-      position: relative;
-      padding-left: 1rem;
-    }
-
-    .timeline-item ul li::before {
-      content: '›';
-      position: absolute;
-      left: 0;
-      color: var(--accent-dim);
-    }
-
-    /* Contact */
-    .contact {
-      text-align: center;
-      padding: 8rem 2rem;
-    }
-
-    .contact h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      margin-bottom: 1rem;
-    }
-
-    .contact p {
-      color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto 2rem;
-    }
-
-    .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      border-top: 1px solid var(--border);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .entry-body.has-video {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 6rem;
-        gap: 2rem;
-      }
-
-      .hero-img {
-        width: 240px;
-        height: 240px;
-      }
-
-      .hero-cta {
-        justify-content: center;
-      }
-
-      .entry {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 1.5rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -710,29 +34,26 @@
       <img src="headshot.png" alt="Jess" class="hero-img" />
     </div>
     <div class="hero-content">
-      <div class="hero-greeting">Hi, I'm Jess</div>
+      <div class="hero-greeting">Principal Software Engineer</div>
       <h1>I build <span>systems that cannot afford to fail.</span></h1>
       <p>
-        My entry into software wasn't through a standard computer science pipeline; 
-        it was forged through discrete mathematics and military service. That background 
-        shaped how I approach engineering: structure first, absolute clarity on edge cases, 
-        and zero reliance on off-the-shelf abstractions when performance and data integrity 
-        are on the line.
+        Principal engineer specializing in identity infrastructure, distributed systems, 
+        and low-level tooling across Go, Rust, Kotlin, and Python. I deliver commissioned 
+        systems including SAML/OIDC federation gateways, event-driven payment ledgers, 
+        sub-100ns feature-flag engines, and hybrid RAG retrieval. Several are running 
+        live below.
       </p>
       <p>
-        I work primarily at the intersection of low-level systems, distributed reliability, 
-        and applied mathematics. Whether I am hand-writing zero-copy parsers in Rust, 
-        engineering network diagnostics in Go, or researching belief manifolds for AI memory 
-        architectures, my baseline requirement is the same: complete visibility into every 
-        layer of the execution stack.
+        After I was honorably discharged from the Army, I started college on the Army's 
+        dime and got into discrete mathematics, which still shapes how I engineer. 
+        These days I'm open to full-time roles and contract work.
       </p>
-      <p>
-        I don't hide the learning curve or pretend to have all the answers upfront. I dive 
-        into complex, uncharted domain space, map the mathematical boundaries, build the 
-        solution from first principles, and own the results.
-      </p>
+      <div class="engagement">
+        <span>Full-time</span><span>Contract</span>
+      </div>
       <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#projects" class="btn btn-secondary">View Projects</a>
         <a href="https://www.linkedin.com/in/jessicatemplet" target="_blank" class="btn btn-secondary">LinkedIn</a>
         <a href="https://github.com/JessicaTemplet" target="_blank" class="btn btn-secondary">GitHub</a>
       </div>
@@ -743,21 +64,12 @@
     <section>
       <div class="section-header reveal">
         <div class="section-label">Selected Work</div>
-        <h2 class="section-title">Production systems</h2>
+        <h2 class="section-title">Featured systems</h2>
         <p class="section-note">Titles link to the live, running application — click through to explore it firsthand.</p>
       </div>
 
       <div class="entry is-live reveal">
         <div class="entry-index">01<span class="dot"></span></div>
-        <div class="entry-body">
-          <h3><a href="https://gnn-pde-cfd.syntagmata.com" target="_blank" class="live-link" data-name="GNN PDE CFD">GNN PDE CFD</a> <span class="status-tag">live</span></h3>
-          <p>Built from scratch Graph Neural Network PDE solvers for computational fluid dynamics. With a validation dashboard that shows real output, including the fix for a spectral radius blow-up in autoregressive rollouts.</p>
-          <div class="stack"><span>PyTorch</span><span>GNN</span><span>PDE</span></div>
-        </div>
-      </div>
-
-      <div class="entry is-live reveal">
-        <div class="entry-index">02<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
             <h3><a href="https://rheologos.syntagmata.com" target="_blank" class="live-link" data-name="RheoLogos">RheoLogos</a> <span class="status-tag">live</span></h3>
@@ -773,7 +85,7 @@
       </div>
 
       <div class="entry is-live reveal">
-        <div class="entry-index">03<span class="dot"></span></div>
+        <div class="entry-index">02<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
             <h3><a href="https://flagforge.syntagmata.com" target="_blank" class="live-link" data-name="FlagForge">FlagForge</a> <span class="status-tag">live</span></h3>
@@ -789,7 +101,7 @@
       </div>
 
       <div class="entry is-live reveal">
-        <div class="entry-index">04<span class="dot"></span></div>
+        <div class="entry-index">03<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
             <h3><a href="https://b2bfp.syntagmata.com" target="_blank" class="live-link" data-name="B2B Federation Gateway">B2B Federation Gateway</a> <span class="status-tag">live</span></h3>
@@ -805,23 +117,7 @@
       </div>
 
       <div class="entry is-live reveal">
-        <div class="entry-index">05<span class="dot"></span></div>
-        <div class="entry-body has-video">
-          <div class="entry-text">
-            <h3><a href="https://microidentitysidecar.syntagmata.com" target="_blank" class="live-link" data-name="Micro Identity Sidecar">Micro Identity Sidecar</a> <span class="status-tag">live</span></h3>
-            <p>A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a sidecar next to whatever actually needs the auth.</p>
-            <div class="stack"><span>Go</span><span>OAuth 2.1</span><span>OIDC</span></div>
-          </div>
-          <div class="entry-video">
-            <video controls preload="metadata" playsinline poster="demo/sidecar-poster.jpg" aria-label="Micro Identity Sidecar walkthrough: signing in through the OAuth 2.1 / PKCE authorization code flow and inspecting the decoded ID token claims">
-              <source src="demo/sidecar.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-      </div>
-
-      <div class="entry is-live reveal">
-        <div class="entry-index">06<span class="dot"></span></div>
+        <div class="entry-index">04<span class="dot"></span></div>
         <div class="entry-body has-video">
           <div class="entry-text">
             <h3><a href="https://novastructur.onrender.com/login" target="_blank" class="live-link" data-name="NovaStructur">NovaStructur</a> <span class="status-tag">live</span></h3>
@@ -836,47 +132,8 @@
         </div>
       </div>
 
-      <div class="entry is-live reveal">
-        <div class="entry-index">07<span class="dot"></span></div>
-        <div class="entry-body has-video">
-          <div class="entry-text">
-            <h3><a href="https://acme.collabpm.syntagmata.com" target="_blank" class="live-link" data-name="CollabPM">CollabPM</a> <span class="status-tag">live</span></h3>
-            <p>A full blown collaborative project manager based on a Google Docs-style shared text editor over Action Cable with hand rolled custom CRDT, calendar and project intelligence MCP.</p>
-            <div class="stack"><span>Python</span><span>Flask</span></div>
-          </div>
-          <div class="entry-video">
-            <video controls preload="metadata" playsinline poster="demo/collabpm-poster.jpg" aria-label="CollabPM walkthrough: opening the Documents module and creating a new folder">
-              <source src="demo/collabpm.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-      </div>
-
-      <div class="entry reveal">
-        <div class="entry-index">08<span class="dot"></span></div>
-        <div class="entry-body">
-          <h3>Archivum <span class="status-tag">desktop</span></h3>
-          <p>A local-first document vault. Desktop only, so this one gets a walkthrough video instead of a link once it's recorded.</p>
-          <div class="stack"><span>Rust</span><span>Tauri</span></div>
-        </div>
-      </div>
-
-      <div class="entry reveal">
-        <div class="entry-index">09<span class="dot"></span></div>
-        <div class="entry-body">
-          <h3><a href="https://github.com/JessicaTemplet/limes" target="_blank">Limes</a> <span class="status-tag">terminal tool, source linked</span></h3>
-          <p>Diagnoses and fixes cross-cloud network conflicts: overlapping CIDR ranges, inconsistent private networking, DNS resolving differently across AWS, GCP, and Azure. Built alone, under production pressure, to fix a real outage. (It's not Limes like the fruit, it's Latin for frontier line or border defense).</p>
-          <div class="stack"><span>Go</span><span>CLI</span></div>
-        </div>
-      </div>
-
-      <div class="entry reveal">
-        <div class="entry-index">10<span class="dot"></span></div>
-        <div class="entry-body">
-          <h3>Stemma <span class="status-tag">building</span></h3>
-          <p>Detects instructions embedded in content headed for an LLM or agent, and traces where they actually came from before anything acts on them.</p>
-          <div class="stack"><span>Rust</span><span>WASM</span></div>
-        </div>
+      <div class="reveal" style="text-align:center;margin-top:3rem">
+        <a href="projects.html" class="btn btn-secondary">More projects →</a>
       </div>
     </section>
   </div>
@@ -892,7 +149,7 @@
           <h4>Templet Solutions</h4>
           <span class="date">2025 — Present</span>
         </div>
-        <div class="role">Principal Engineer (Fractional CTO)</div>
+        <div class="role">Principal Engineer · commissioned client work and independent product builds</div>
         <ul>
           <li>Built Limes Cross-Cloud Network Guard (Go) for multi-cloud CIDR diagnostics</li>
           <li>Engineered B2B Enterprise Identity Gateway with hand-rolled XML-DSig & RS256 verification</li>
@@ -1004,7 +261,7 @@
   <section class="contact" id="contact">
     <div class="section-label" style="justify-content:center;display:flex;">Get in touch</div>
     <h2>Let's build something that lasts.</h2>
-    <p>I'm currently open to principal engineering, fractional CTO, and high-trust infrastructure engagements.</p>
+    <p>Open to full-time roles and contract work — principal engineering and high-trust infrastructure especially.</p>
     <div class="contact-links">
       <a href="mailto:jessica@templetsolutions.com" class="btn btn-primary">jessica@templetsolutions.com</a>
       <a href="https://www.linkedin.com/in/jessicatemplet" target="_blank" class="btn btn-secondary">LinkedIn</a>
@@ -1016,21 +273,7 @@
     <p> Jess — Built with first principles.</p>
   </footer>
 
-  <script>
-    (function () {
-      const revealEls = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            entry.target.style.transitionDelay = (i % 6) * 0.06 + 's';
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-      revealEls.forEach(el => io.observe(el));
-    })();
-  </script>
+  <script src="site.js"></script>
 
   <script>
     (function () {
@@ -1059,16 +302,6 @@
       // Give the browser a moment, then send a second pass.
       setTimeout(() => { services.forEach(wakeService); }, 10000);
 
-      // Route "live" project links through a custom waking screen instead
-      // of letting people land on Render's generic spin-up page.
-      document.querySelectorAll("a.live-link").forEach(link => {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          const to = encodeURIComponent(this.href);
-          const name = encodeURIComponent(this.dataset.name || this.textContent.trim());
-          window.open("launch.html?to=" + to + "&name=" + name, "_blank");
-        });
-      });
     })();
   </script>
 

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jess — More Projects</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html"><img src="logo.png" alt="Home" style="width:56px;height:56px;border-radius:12px"></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#projects">Featured</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="projects" id="projects" style="margin-top:5rem">
+    <section>
+      <div class="section-header reveal">
+        <div class="section-label">Archive</div>
+        <h2 class="section-title">More projects</h2>
+        <p class="section-note">Titles link to the live, running application where one exists.</p>
+        <p style="margin-top:1rem"><a href="index.html#projects" class="btn btn-secondary">← Back to featured work</a></p>
+      </div>
+
+      <div class="entry is-live reveal">
+        <div class="entry-index">01<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3><a href="https://gnn-pde-cfd.syntagmata.com" target="_blank" class="live-link" data-name="GNN PDE CFD">GNN PDE CFD</a> <span class="status-tag">live</span></h3>
+          <p>Built from scratch Graph Neural Network PDE solvers for computational fluid dynamics. With a validation dashboard that shows real output, including the fix for a spectral radius blow-up in autoregressive rollouts.</p>
+          <div class="stack"><span>PyTorch</span><span>GNN</span><span>PDE</span></div>
+        </div>
+      </div>
+
+      <div class="entry is-live reveal">
+        <div class="entry-index">02<span class="dot"></span></div>
+        <div class="entry-body has-video">
+          <div class="entry-text">
+            <h3><a href="https://microidentitysidecar.syntagmata.com" target="_blank" class="live-link" data-name="Micro Identity Sidecar">Micro Identity Sidecar</a> <span class="status-tag">live</span></h3>
+            <p>A local-first OAuth 2.1 and OIDC authorization server, small enough to run as a sidecar next to whatever actually needs the auth.</p>
+            <div class="stack"><span>Go</span><span>OAuth 2.1</span><span>OIDC</span></div>
+          </div>
+          <div class="entry-video">
+            <video controls preload="metadata" playsinline poster="demo/sidecar-poster.jpg" aria-label="Micro Identity Sidecar walkthrough: signing in through the OAuth 2.1 / PKCE authorization code flow and inspecting the decoded ID token claims">
+              <source src="demo/sidecar.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry is-live reveal">
+        <div class="entry-index">03<span class="dot"></span></div>
+        <div class="entry-body has-video">
+          <div class="entry-text">
+            <h3><a href="https://acme.collabpm.syntagmata.com" target="_blank" class="live-link" data-name="CollabPM">CollabPM</a> <span class="status-tag">live</span></h3>
+            <p>A full blown collaborative project manager based on a Google Docs-style shared text editor over Action Cable with hand rolled custom CRDT, calendar and project intelligence MCP.</p>
+            <div class="stack"><span>Python</span><span>Flask</span></div>
+          </div>
+          <div class="entry-video">
+            <video controls preload="metadata" playsinline poster="demo/collabpm-poster.jpg" aria-label="CollabPM walkthrough: opening the Documents module and creating a new folder">
+              <source src="demo/collabpm.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-index">04<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Archivum <span class="status-tag">desktop</span></h3>
+          <p>A local-first document vault. Desktop only, so this one gets a walkthrough video instead of a link once it's recorded.</p>
+          <div class="stack"><span>Rust</span><span>Tauri</span></div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-index">05<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3><a href="https://github.com/JessicaTemplet/limes" target="_blank">Limes</a> <span class="status-tag">terminal tool, source linked</span></h3>
+          <p>Diagnoses and fixes cross-cloud network conflicts: overlapping CIDR ranges, inconsistent private networking, DNS resolving differently across AWS, GCP, and Azure. Built alone, under production pressure, to fix a real outage. (It's not Limes like the fruit, it's Latin for frontier line or border defense).</p>
+          <div class="stack"><span>Go</span><span>CLI</span></div>
+        </div>
+      </div>
+
+      <div class="entry reveal">
+        <div class="entry-index">06<span class="dot"></span></div>
+        <div class="entry-body">
+          <h3>Stemma <span class="status-tag">building</span></h3>
+          <p>Detects instructions embedded in content headed for an LLM or agent, and traces where they actually came from before anything acts on them.</p>
+          <div class="stack"><span>Rust</span><span>WASM</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="contact" id="contact">
+    <h2>Like what you see?</h2>
+    <p>Full-time or contract — let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:jessica@templetsolutions.com" class="btn btn-primary">jessica@templetsolutions.com</a>
+      <a href="index.html" class="btn btn-secondary">Home</a>
+    </div>
+  </section>
+
+  <footer>
+    <p> Jess — Built with first principles.</p>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>
