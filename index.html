@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jess — Principal Software Engineer</title>
+  <title>Jess | Mathematician &amp; Software Engineer</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -22,6 +22,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -34,14 +35,14 @@
       <img src="headshot.png" alt="Jess" class="hero-img" />
     </div>
     <div class="hero-content">
-      <div class="hero-greeting">Principal Software Engineer</div>
+      <div class="hero-greeting">Mathematician &amp; Software Engineer</div>
       <h1>I build <span>systems that cannot afford to fail.</span></h1>
       <p>
-        Principal engineer specializing in identity infrastructure, distributed systems, 
-        and low-level tooling across Go, Rust, Kotlin, and Python. I deliver commissioned 
-        systems including SAML/OIDC federation gateways, event-driven payment ledgers, 
-        sub-100ns feature-flag engines, and hybrid RAG retrieval. Several are running 
-        live below.
+        I'm a mathematician who ships. I build identity infrastructure, distributed systems,
+        and low-level tooling across Go, Rust, Kotlin, and Python, plus the ML and research
+        work that comes from the same math. I deliver commissioned systems including
+        SAML/OIDC federation gateways, event-driven payment ledgers, sub-100ns feature-flag
+        engines, and hybrid RAG retrieval. Several are running live below.
       </p>
       <p>
         After I was honorably discharged from the Army, I started college on the Army's 
@@ -138,6 +139,40 @@
     </section>
   </div>
 
+  <section id="research">
+    <div class="section-header reveal">
+      <div class="section-label">Research &amp; Development</div>
+      <h2 class="section-title">Where the math gets tested</h2>
+    </div>
+
+    <div class="entry reveal">
+      <div class="entry-index">01<span class="dot"></span></div>
+      <div class="entry-body">
+        <h3>Physics Informed Neural Networks, Inverse Problems</h3>
+        <p>Repeated a published PINN parameter recovery on Fisher-KPP, a reaction diffusion equation with a traveling front. Across 12 seeds the PINN missed the diffusion rate by 33% rms while a plain classical fit landed around 10%. Traced it to the loss itself scoring the wrong answer better than the right one, then salvaged the bad runs to about 16% by reading the parameter off the front's global behavior instead.</p>
+        <div class="stack"><span>PyTorch</span><span>PINNs</span><span>Inverse Problems</span><span>Finite Differences</span></div>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="entry-index">02<span class="dot"></span></div>
+      <div class="entry-body">
+        <h3><a href="https://github.com/JessicaTemplet/gnn-pde-cfd" target="_blank">Graph Neural Network PDE Solvers</a></h3>
+        <p>Trained GNNs to imitate classical solvers across elliptic, parabolic, and hyperbolic equations, each validated against a finite difference or spectral reference. Fixed a rollout instability on Burgers' equation with curriculum based unrolled training, and cut long horizon error by more than half with a Cole-Hopf transformation.</p>
+        <div class="stack"><span>PyTorch Geometric</span><span>GNNs</span><span>PDEs</span><span>CFD</span></div>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="entry-index">03<span class="dot"></span></div>
+      <div class="entry-body">
+        <h3>Silicon, Tiny Tapeout</h3>
+        <p>Took a design all the way down to silicon, completing a chip for the Jane Street competition on Tiny Tapeout.</p>
+        <div class="stack"><span>ASIC</span><span>Tiny Tapeout</span></div>
+      </div>
+    </div>
+  </section>
+
   <section id="experience">
     <div class="section-header reveal">
       <div class="section-label">Experience</div>
@@ -149,7 +184,7 @@
           <h4>Templet Solutions</h4>
           <span class="date">2025 — Present</span>
         </div>
-        <div class="role">Principal Engineer · commissioned client work and independent product builds</div>
+        <div class="role">Software Engineer · commissioned client work and independent product builds</div>
         <ul>
           <li>Built Limes Cross-Cloud Network Guard (Go) for multi-cloud CIDR diagnostics</li>
           <li>Engineered B2B Enterprise Identity Gateway with hand-rolled XML-DSig & RS256 verification</li>
@@ -261,7 +296,7 @@
   <section class="contact" id="contact">
     <div class="section-label" style="justify-content:center;display:flex;">Get in touch</div>
     <h2>Let's build something that lasts.</h2>
-    <p>Open to full-time roles and contract work — principal engineering and high-trust infrastructure especially.</p>
+    <p>Open to full-time roles and contract work, high-trust infrastructure and applied research especially.</p>
     <div class="contact-links">
       <a href="mailto:jessica@templetsolutions.com" class="btn btn-primary">jessica@templetsolutions.com</a>
       <a href="https://www.linkedin.com/in/jessicatemplet" target="_blank" class="btn btn-secondary">LinkedIn</a>
