@@ -110,7 +110,7 @@ nav {
 
 .logo {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: var(--accent);
   letter-spacing: -0.02em;
@@ -210,7 +210,7 @@ nav {
 
 .hero-greeting {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--accent-bright);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -257,7 +257,7 @@ nav {
 
 .engagement span {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   padding: 0.3rem 0.8rem;
   border: 1px solid var(--accent-dim);
   border-radius: 100px;
@@ -279,7 +279,7 @@ nav {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.25s var(--ease);
@@ -324,7 +324,7 @@ section {
 
 .section-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -422,7 +422,7 @@ section {
 
 .status-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.25rem 0.6rem;
@@ -455,7 +455,7 @@ section {
 
 .stack span {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   padding: 0.3rem 0.7rem;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -527,7 +527,7 @@ section {
 }
 
 .skill-card h4 {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--accent);
@@ -599,7 +599,7 @@ section {
 
 .timeline-item .role {
   color: var(--accent);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 500;
   margin-bottom: 0.75rem;
 }
