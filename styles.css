@@ -648,12 +648,32 @@ section {
 }
 
 footer {
-  text-align: center;
-  padding: 3rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   border-top: 1px solid var(--border);
-  font-family: 'JetBrains Mono', monospace;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--text-primary);
 }
 
 /* Responsive */
